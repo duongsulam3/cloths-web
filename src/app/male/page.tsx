@@ -32,7 +32,7 @@ const MaleClothPage = () => {
   return (
     <>
       <Image
-        style={{ marginTop: "3vh" }}
+        style={{ marginTop: "2vh", minHeight: "125px" }}
         className="d-block w-100"
         alt=""
         src="https://firebasestorage.googleapis.com/v0/b/shopping-app-flutter-8f35d.appspot.com/o/images%2Fbanners%2Fthoi-trang-nam-thuong-hieu-routine-dep-cao-cap-chinh-hang.jpg?alt=media&token=0f862b23-0a67-4dbb-81b7-a3f6dab2bcb5&_gl=1*1di0ihs*_ga*MTA0MjcyMTA4MS4xNjc3NzU4MTMx*_ga_CW55HF8NVT*MTY5NjI2MTM3NS4xMDcuMS4xNjk2MjYxOTM2LjM5LjAuMA.."

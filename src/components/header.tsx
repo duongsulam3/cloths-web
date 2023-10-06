@@ -1,13 +1,15 @@
 "use client";
+import { Form } from "react-bootstrap";
 import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import NavDropdown from "react-bootstrap/NavDropdown";
+import "material-icons/iconfont/material-icons.css";
 
 const Header = () => {
   return (
     <Navbar
-      variant="auto"
+      variant="light"
       style={{ height: "10vh" }}
       sticky="top"
       expand="lg"
@@ -44,9 +46,12 @@ const Header = () => {
           </Nav>
         </Navbar.Collapse>
         <Navbar.Collapse className="justify-content-end">
-          <Navbar.Text>
-            Hello: <a href="#login">Yang</a>
-          </Navbar.Text>
+          <Form style={{ alignItems: "center" }} className="d-flex">
+            <span style={{ marginRight: "10px" }} className="material-icons">
+              search
+            </span>
+            <Form.Control type="text" placeholder="Search ..." />
+          </Form>
         </Navbar.Collapse>
       </Container>
     </Navbar>
