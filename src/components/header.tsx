@@ -1,0 +1,56 @@
+"use client";
+import Container from "react-bootstrap/Container";
+import Nav from "react-bootstrap/Nav";
+import Navbar from "react-bootstrap/Navbar";
+import NavDropdown from "react-bootstrap/NavDropdown";
+
+const Header = () => {
+  return (
+    <Navbar
+      variant="auto"
+      style={{ height: "10vh" }}
+      sticky="top"
+      expand="lg"
+      className="bg-body-tertiary"
+    >
+      <Container>
+        <Navbar.Brand href="/">ClothS</Navbar.Brand>
+        <Navbar.Toggle aria-controls="basic-navbar-nav" />
+        <Navbar.Collapse id="basic-navbar-nav">
+          <Nav className="me-auto">
+            <Nav.Link href="/male">Nam</Nav.Link>
+            <Nav.Link href="/female">Nữ</Nav.Link>
+            <Nav.Link href="/kid">Trẻ em</Nav.Link>
+            <Nav.Link href="/baby">Em bé</Nav.Link>
+            <NavDropdown title="Phụ kiện" id="basic-nav-dropdown">
+              <NavDropdown.Item href="/accessories/shoes">
+                Giày
+              </NavDropdown.Item>
+              <NavDropdown.Item href="/accessories/wallet">
+                Ví da
+              </NavDropdown.Item>
+              <NavDropdown.Item href="/accessories/belt">
+                Thắt lưng
+              </NavDropdown.Item>
+              <NavDropdown.Item href="/accessories/tie">
+                Cà vạt
+              </NavDropdown.Item>
+              <NavDropdown.Item href="/accessories/sock">
+                Tất / Vớ
+              </NavDropdown.Item>
+              <NavDropdown.Divider />
+              <NavDropdown.Item href="#action/3.4">Khác</NavDropdown.Item>
+            </NavDropdown>
+          </Nav>
+        </Navbar.Collapse>
+        <Navbar.Collapse className="justify-content-end">
+          <Navbar.Text>
+            Hello: <a href="#login">Yang</a>
+          </Navbar.Text>
+        </Navbar.Collapse>
+      </Container>
+    </Navbar>
+  );
+};
+
+export default Header;
