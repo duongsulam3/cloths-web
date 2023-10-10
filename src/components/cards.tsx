@@ -5,6 +5,7 @@ import "@/styles/app.scss";
 import { Row, Col, Container } from "react-bootstrap";
 
 import Filter from "./filter";
+import Link from "next/link";
 
 interface IPros {
   cloths: Cloth[];
@@ -12,7 +13,6 @@ interface IPros {
 
 const CardItem = (props: IPros) => {
   let { cloths } = props;
-  //   console.log(cloths);
   return (
     <Container fluid>
       <Row className="g-2">
@@ -24,28 +24,36 @@ const CardItem = (props: IPros) => {
             {cloths.map((cloth, index) => {
               return (
                 <Col key={index}>
-                  <Card
-                    style={{
-                      paddingLeft: "0",
-                      paddingRight: "0",
-                    }}
+                  <Link
+                    style={{ color: "transparent" }}
+                    href={`/cloths/${cloth.idCloth}`}
                   >
-                    <Card.Img variant="top" src={cloth.img[0]} />
-                    <Card.Body className="card-body d-flex flex-column">
-                      <Card.Title className="block-ellipsis-title">
-                        {cloth.name}
-                      </Card.Title>
-                      <Card.Text className="block-ellipsis">
-                        {cloth.description}
-                      </Card.Text>
-                      <Card.Title className="old-price">
-                        {cloth.oldPrice}
-                      </Card.Title>
-                      <Card.Title className="price">
-                        {cloth.price + " " + cloth.currency}
-                      </Card.Title>
-                    </Card.Body>
-                  </Card>
+                    <Card
+                      style={{
+                        paddingLeft: "0",
+                        paddingRight: "0",
+                      }}
+                    >
+                      <Card.Img variant="top" src={cloth.img[0]} />
+                      <Card.Body className="card-body d-flex flex-column">
+                        <Card.Title
+                          style={{ textAlign: "start" }}
+                          className="block-ellipsis-title"
+                        >
+                          {cloth.name}
+                        </Card.Title>
+                        <Card.Text className="block-ellipsis">
+                          {cloth.description}
+                        </Card.Text>
+                        <Card.Title className="old-price">
+                          {cloth.oldPrice}
+                        </Card.Title>
+                        <Card.Title className="price">
+                          {cloth.price + " " + cloth.currency}
+                        </Card.Title>
+                      </Card.Body>
+                    </Card>
+                  </Link>
                 </Col>
               );
             })}

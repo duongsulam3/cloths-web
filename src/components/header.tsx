@@ -5,6 +5,9 @@ import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import NavDropdown from "react-bootstrap/NavDropdown";
 import "material-icons/iconfont/material-icons.css";
+import Link from "next/link";
+
+import "@/styles/app.scss";
 
 const Header = () => {
   return (
@@ -17,7 +20,7 @@ const Header = () => {
     >
       <Container>
         <Navbar.Brand href="/">ClothS</Navbar.Brand>
-        <Navbar.Toggle aria-controls="basic-navbar-nav" />
+        <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto">
             <Nav.Link href="/male">Nam</Nav.Link>
@@ -46,12 +49,37 @@ const Header = () => {
           </Nav>
         </Navbar.Collapse>
         <Navbar.Collapse className="justify-content-end">
-          <Form style={{ alignItems: "center" }} className="d-flex">
-            <span style={{ marginRight: "10px" }} className="material-icons">
-              search
-            </span>
-            <Form.Control type="text" placeholder="Search ..." />
-          </Form>
+          <div
+            style={{
+              display: "flex",
+              alignItems: "center",
+            }}
+          >
+            <Form
+              style={{ alignItems: "center", width: "100%" }}
+              className="d-flex"
+            >
+              <span style={{ marginRight: "10px" }} className="material-icons">
+                search
+              </span>
+              <Form.Control type="text" placeholder="Search ..." />
+            </Form>
+            <Nav.Link href={"/"}>
+              <span style={{ marginLeft: "10px" }} className="material-icons">
+                favorite_border
+              </span>
+            </Nav.Link>
+            <Nav.Link href={"/"}>
+              <span style={{ marginLeft: "10px" }} className="material-icons">
+                shopping_cart
+              </span>
+            </Nav.Link>
+            <Nav.Link href={"/"}>
+              <span style={{ marginLeft: "10px" }} className="material-icons">
+                person
+              </span>
+            </Nav.Link>
+          </div>
         </Navbar.Collapse>
       </Container>
     </Navbar>
