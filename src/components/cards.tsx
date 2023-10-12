@@ -37,7 +37,7 @@ const CardItem = (props: IPros) => {
                       <Card.Img variant="top" src={cloth.img[0]} />
                       <Card.Body className="card-body d-flex flex-column">
                         <Card.Title
-                          style={{ textAlign: "start" }}
+                          style={{ marginBottom: "10px" }}
                           className="block-ellipsis-title"
                         >
                           {cloth.name}

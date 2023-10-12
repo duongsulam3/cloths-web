@@ -7,7 +7,7 @@ interface Banner {
 }
 
 interface Cloth {
-    id: string
+    idCloth: string
     name: string
     img: Array[string]
     price: number

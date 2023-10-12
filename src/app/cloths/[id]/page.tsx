@@ -1,5 +1,37 @@
+"use client";
+import ImageSlider from "@/components/imageslider";
+import { db } from "@/config/firebase";
+import { doc, onSnapshot } from "firebase/firestore";
+import { useEffect, useState } from "react";
+import { Col, Container, Row } from "react-bootstrap";
+
 const DetailCloth = ({ params }: { params: { id: string } }) => {
-  return <>Detail Page: {params.id}</>;
+  const [singleCloth, setSingleCloth] = useState() as any;
+  useEffect(() => {
+    const getClothById = () => {
+      try {
+        const docRef = doc(db, "clothing", params.id);
+        onSnapshot(docRef, (doc) => {
+          let data = doc.data();
+          setSingleCloth(data);
+        });
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    getClothById();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+  return (
+    <Container style={{ marginTop: "10px" }}>
+      <Row>
+        <Col sm>
+          <ImageSlider cloth={singleCloth} />
+        </Col>
+        <Col sm>This is Detail </Col>
+      </Row>
+    </Container>
+  );
 };
 
 export default DetailCloth;
