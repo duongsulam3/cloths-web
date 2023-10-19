@@ -21,7 +21,7 @@ const CardItem = (props: IPros) => {
         </Col>
         <Col xs={10}>
           <Row xs={1} sm={2} md={4} className="g-3">
-            {cloths.map((cloth, index) => {
+            {cloths?.map((cloth, index) => {
               return (
                 <Col key={index}>
                   <Link

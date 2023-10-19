@@ -60,6 +60,7 @@
   margin-top: 20px;
   font-size: medium;
   text-decoration: line-through;
+  color: rgb(186, 182, 182);
 }
 
 .card {
@@ -69,4 +70,15 @@
 
 .myRed {
   background-color: red;
+}
+
+.size-container-box {
+  display: flex;
+  height: 50px;
+  width: 50px;
+  border: 1px solid black;
+  text-align: center;
+  font-size: 18px;
+  align-items: center;
+  justify-content: center;
 }

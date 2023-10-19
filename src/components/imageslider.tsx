@@ -9,6 +9,7 @@ interface IPros {
 
 const ImageSlider = (props: IPros) => {
   let { cloth } = props;
+  //console.log(cloth);
 
   const [index, setIndex] = useState(0);
   const handleSelect = (selectedIndex: SetStateAction<number>) => {
@@ -19,7 +20,11 @@ const ImageSlider = (props: IPros) => {
     <Row>
       <Col xs="2">
         {cloth?.img.map((imageSrc: string, i: Key) => {
-          return <Image alt="" key={i} src={imageSrc} thumbnail />;
+          return (
+            <a key={i}>
+              <Image alt="" src={imageSrc} thumbnail loading="lazy" />
+            </a>
+          );
         })}
       </Col>
       <Col xs="10">
@@ -27,7 +32,7 @@ const ImageSlider = (props: IPros) => {
           {cloth?.img.map((imageSrc: string, i: Key) => {
             return (
               <Carousel.Item key={i}>
-                <Image alt="" src={imageSrc} fluid />
+                <Image alt="" src={imageSrc} fluid loading="lazy" />
               </Carousel.Item>
             );
           })}

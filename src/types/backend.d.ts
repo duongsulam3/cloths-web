@@ -18,3 +18,9 @@ interface Cloth {
     currency: string
     category: string
 }
+
+interface SizesCloth {
+    idSize: number
+    isSelected: boolean
+    size: string
+}
