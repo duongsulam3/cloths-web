@@ -26,10 +26,10 @@ const DetailCloth = ({ params }: { params: { id: string } }) => {
   return (
     <Container style={{ marginTop: "10px" }}>
       <Row>
-        <Col sm>
+        <Col>
           <ImageSlider cloth={singleCloth} />
         </Col>
-        <Col sm>
+        <Col>
           <DescriptionCloth
             cloth={singleCloth}
             path={`clothing/${params.id}/sizes`}

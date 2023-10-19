@@ -32,7 +32,12 @@ const ImageSlider = (props: IPros) => {
           {cloth?.img.map((imageSrc: string, i: Key) => {
             return (
               <Carousel.Item key={i}>
-                <Image alt="" src={imageSrc} fluid loading="lazy" />
+                <Image
+                  style={{ minHeight: "376px", minWidth: "376px" }}
+                  alt=""
+                  src={imageSrc}
+                  fluid
+                />
               </Carousel.Item>
             );
           })}
