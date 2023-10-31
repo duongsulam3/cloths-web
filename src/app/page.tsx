@@ -6,6 +6,8 @@ import { useState, useEffect } from "react";
 import { getDocs, collection } from "firebase/firestore";
 import { db } from "../config/firebase";
 import CardItem from "@/components/cards";
+import { Col, Container, Row } from "react-bootstrap";
+import SearchBar from "@/components/search-bar";
 
 export default function Home() {
   const [bannerList, setBannerList] = useState([] as any);
@@ -53,7 +55,13 @@ export default function Home() {
       >
         <h2>Sản phẩm</h2>
       </div>
-      <CardItem cloths={clothList} />
+      <Container fluid>
+        <Row className="g-2">
+          <Col>
+            <CardItem cloths={clothList} />
+          </Col>
+        </Row>
+      </Container>
     </>
   );
 }

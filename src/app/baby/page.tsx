@@ -1,9 +1,10 @@
 "use client";
 import CardItem from "@/components/cards";
+import Filter from "@/components/filter";
 import { db } from "@/config/firebase";
 import { collection, getDocs, query, where } from "firebase/firestore";
 import { useEffect, useState } from "react";
-import { Image } from "react-bootstrap";
+import { Col, Container, Image, Row } from "react-bootstrap";
 
 const BabyClothPage = () => {
   const [babyClothList, setBabyClothList] = useState([] as any);
@@ -37,7 +38,16 @@ const BabyClothPage = () => {
       <div style={{ marginTop: "1vh" }} className="text-center ">
         <h2>Thời Trang Bé</h2>
       </div>
-      <CardItem cloths={babyClothList} />
+      <Container fluid>
+        <Row className="g-2">
+          <Col xs={2}>
+            <Filter />
+          </Col>
+          <Col xs={10}>
+            <CardItem cloths={babyClothList} />
+          </Col>
+        </Row>
+      </Container>
     </>
   );
 };

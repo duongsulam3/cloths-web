@@ -8,6 +8,7 @@ import "material-icons/iconfont/material-icons.css";
 import Link from "next/link";
 
 import "@/styles/app.scss";
+import SearchBar from "./search-bar";
 
 const Header = () => {
   return (
@@ -27,7 +28,7 @@ const Header = () => {
             <Nav.Link href="/female">Nữ</Nav.Link>
             <Nav.Link href="/kid">Trẻ em</Nav.Link>
             <Nav.Link href="/baby">Em bé</Nav.Link>
-            <NavDropdown title="Phụ kiện" id="basic-nav-dropdown">
+            {/* <NavDropdown title="Phụ kiện" id="basic-nav-dropdown">
               <NavDropdown.Item href="/accessories/shoes">
                 Giày
               </NavDropdown.Item>
@@ -45,7 +46,7 @@ const Header = () => {
               </NavDropdown.Item>
               <NavDropdown.Divider />
               <NavDropdown.Item href="#action/3.4">Khác</NavDropdown.Item>
-            </NavDropdown>
+            </NavDropdown> */}
           </Nav>
         </Navbar.Collapse>
         <Navbar.Collapse className="justify-content-end">
@@ -55,15 +56,7 @@ const Header = () => {
               alignItems: "center",
             }}
           >
-            <Form
-              style={{ alignItems: "center", width: "100%" }}
-              className="d-flex"
-            >
-              <span style={{ marginRight: "10px" }} className="material-icons">
-                search
-              </span>
-              <Form.Control type="text" placeholder="Search ..." />
-            </Form>
+            <SearchBar />
             <Nav.Link href={"/"}>
               <span style={{ marginLeft: "10px" }} className="material-icons">
                 favorite_border
