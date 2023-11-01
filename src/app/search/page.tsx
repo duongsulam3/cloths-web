@@ -20,7 +20,7 @@ const SearchPage = () => {
         const clothCollectionRef = collection(db, "clothing");
         const sectionClothQuery = query(
           clothCollectionRef,
-          where("keySearch", "array-contains", queryCloth!)
+          where("keySearch", "array-contains", queryCloth)
         );
         const data = await getDocs(sectionClothQuery);
         const filterData = data.docs.map((doc) => ({
@@ -33,7 +33,6 @@ const SearchPage = () => {
       }
     };
     getSearchClothList();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [queryCloth]);
 
   return (

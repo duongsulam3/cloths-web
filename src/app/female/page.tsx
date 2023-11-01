@@ -40,10 +40,7 @@ const FemaleClothPage = () => {
       </div>
       <Container fluid>
         <Row className="g-2">
-          <Col xs={2}>
-            <Filter />
-          </Col>
-          <Col xs={10}>
+          <Col>
             <CardItem cloths={femaleClothList} />
           </Col>
         </Row>

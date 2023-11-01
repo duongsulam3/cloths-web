@@ -11,7 +11,10 @@ const SearchBar = () => {
 
   const handleSearch = async (e: any) => {
     e.preventDefault();
-    router.push(`/search?query=${query.toLowerCase()}`);
+    e.target.reset();
+    query == ""
+      ? router.push(`/`)
+      : router.push(`/search?query=${query.toLowerCase().trim()}`);
   };
 
   return (

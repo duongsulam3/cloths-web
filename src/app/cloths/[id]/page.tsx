@@ -21,8 +21,7 @@ const DetailCloth = ({ params }: { params: { id: string } }) => {
       }
     };
     getClothById();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [params.id]);
   return (
     <Container style={{ marginTop: "10px" }}>
       <Row>
