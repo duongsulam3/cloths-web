@@ -1,4 +1,5 @@
 "use client";
+import BannerImagePages from "@/components/banner-image-pages";
 import CardItem from "@/components/cards";
 import Filter from "@/components/filter";
 import { db } from "@/config/firebase";
@@ -29,14 +30,9 @@ const BabyClothPage = () => {
 
   return (
     <>
-      <Image
-        style={{ marginTop: "3vh" }}
-        className="d-block w-100"
-        alt=""
-        src="https://www.google.com/imgres?imgurl=https%3A%2F%2Fwww.rainbowfertility.com.au%2Fwp-content%2Fuploads%2F2021%2F03%2FRF-Web-banner-Brisbane-Opening_desktop.jpg&tbnid=bEQ08bmBPyDfFM&vet=12ahUKEwi2nsTlvt6BAxVZcfUHHXREAewQMygmegUIARCdAQ..i&imgrefurl=https%3A%2F%2Fwww.rainbowfertility.com.au%2Fhome%2Frf-web-banner-brisbane-opening_desktop%2F&docid=S9qDkd7x9rnhAM&w=1920&h=694&q=baby%20banner&ved=2ahUKEwi2nsTlvt6BAxVZcfUHHXREAewQMygmegUIARCdAQ"
-      />
+      <BannerImagePages src="https://firebasestorage.googleapis.com/v0/b/shopping-app-flutter-8f35d.appspot.com/o/images%2Fbanners%2FBS1103-Mint-Green-Baby-Clothes-Shower-Banner__18495.jpg?alt=media&token=3c835b3e-b322-4626-bcde-564786fa10cf&_gl=1*usdidw*_ga*MTA0MjcyMTA4MS4xNjc3NzU4MTMx*_ga_CW55HF8NVT*MTY5ODg0NjkxMy4xNzQuMS4xNjk4ODQ4NDc3LjIwLjAuMA.." />
       <div style={{ marginTop: "1vh" }} className="text-center ">
-        <h2>Thời Trang Bé</h2>
+        <h2>For Baby</h2>
       </div>
       <Container fluid>
         <Row className="g-2">

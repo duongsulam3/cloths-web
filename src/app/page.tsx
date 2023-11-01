@@ -41,7 +41,6 @@ export default function Home() {
     };
     getBannerList();
     getClothList();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
@@ -53,7 +52,7 @@ export default function Home() {
           textAlign: "center",
         }}
       >
-        <h2>Sản phẩm</h2>
+        <h2>Products</h2>
       </div>
       <Container fluid>
         <Row className="g-2">

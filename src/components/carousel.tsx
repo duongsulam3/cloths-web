@@ -5,6 +5,7 @@ import Image from "react-bootstrap/Image";
 import "@/styles/app.scss";
 import { Banner } from "@/types/backend";
 import { Container } from "react-bootstrap";
+import CarouselImage from "./carousel-image";
 
 interface IProps {
   banners: Banner[];
@@ -18,12 +19,7 @@ const CarouselBanner = (props: IProps) => {
       {banners?.map((banner) => {
         return (
           <Carousel.Item key={banner.id}>
-            <Image
-              style={{ height: "90vh" }}
-              className="d-block w-100"
-              alt=""
-              src={banner.img}
-            />
+            <CarouselImage src={banner.img} />
             {/* <Container>
               <Carousel.Caption className="carousel-caption">
                 <h1>{banner.caption}</h1>

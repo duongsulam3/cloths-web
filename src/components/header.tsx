@@ -24,10 +24,10 @@ const Header = () => {
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto">
-            <Nav.Link href="/male">Nam</Nav.Link>
-            <Nav.Link href="/female">Nữ</Nav.Link>
-            <Nav.Link href="/kid">Trẻ em</Nav.Link>
-            <Nav.Link href="/baby">Em bé</Nav.Link>
+            <Nav.Link href="/male">Male</Nav.Link>
+            <Nav.Link href="/female">Female</Nav.Link>
+            <Nav.Link href="/kid">Kid</Nav.Link>
+            <Nav.Link href="/baby">Baby</Nav.Link>
             {/* <NavDropdown title="Phụ kiện" id="basic-nav-dropdown">
               <NavDropdown.Item href="/accessories/shoes">
                 Giày
