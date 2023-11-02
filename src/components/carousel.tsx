@@ -6,6 +6,7 @@ import "@/styles/app.scss";
 import { Banner } from "@/types/backend";
 import { Container } from "react-bootstrap";
 import CarouselImage from "./carousel-image";
+import PlaceHolder from "./placeholder";
 
 interface IProps {
   banners: Banner[];
@@ -14,17 +15,13 @@ interface IProps {
 const CarouselBanner = (props: IProps) => {
   let { banners } = props;
   // console.log(banners);
+
   return (
     <Carousel fade variant="dark">
       {banners?.map((banner) => {
         return (
           <Carousel.Item key={banner.id}>
             <CarouselImage src={banner.img} />
-            {/* <Container>
-              <Carousel.Caption className="carousel-caption">
-                <h1>{banner.caption}</h1>
-              </Carousel.Caption>
-            </Container> */}
           </Carousel.Item>
         );
       })}

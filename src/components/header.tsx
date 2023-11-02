@@ -14,7 +14,9 @@ const Header = () => {
   return (
     <Navbar
       variant="light"
-      style={{ height: "10vh" }}
+      style={{
+        height: "10vh",
+      }}
       sticky="top"
       expand="lg"
       className="bg-body-tertiary"

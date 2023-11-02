@@ -10,10 +10,10 @@ const ListSizes = (props: IPros) => {
 
   return (
     <div style={{ display: "flex" }}>
-      {sizes.map((size, i) => {
+      {sizes?.map((size, i) => {
         return (
           <div key={i} className="size-container-box">
-            {size?.size}
+            {size.size}
           </div>
         );
       })}

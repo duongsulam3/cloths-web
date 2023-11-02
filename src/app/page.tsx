@@ -7,12 +7,15 @@ import { getDocs, collection } from "firebase/firestore";
 import { db } from "../config/firebase";
 import CardItem from "@/components/cards";
 import { Col, Container, Row } from "react-bootstrap";
-import SearchBar from "@/components/search-bar";
+import PlaceHolder from "@/components/placeholder";
+import BannerPlaceHolder from "@/components/banner-placeholder";
 
 export default function Home() {
+  const [loading, setLoading] = useState(true);
   const [bannerList, setBannerList] = useState([] as any);
   const [clothList, setClothList] = useState([] as any);
   useEffect(() => {
+    window.scrollTo(0, 0);
     const getBannerList = async () => {
       try {
         const bannerCollectionRef = collection(db, "banner");
@@ -21,6 +24,7 @@ export default function Home() {
           ...doc.data(),
         }));
         setBannerList(filterData);
+        setLoading(false);
       } catch (e) {
         console.error(e);
       }
@@ -45,7 +49,11 @@ export default function Home() {
 
   return (
     <>
-      <CarouselBanner banners={bannerList} />
+      {loading ? (
+        <BannerPlaceHolder />
+      ) : (
+        <CarouselBanner banners={bannerList} />
+      )}
       <div
         style={{
           marginTop: "20px",

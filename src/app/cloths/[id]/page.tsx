@@ -4,17 +4,20 @@ import ImageSlider from "@/components/imageslider";
 import { db } from "@/config/firebase";
 import { doc, onSnapshot } from "firebase/firestore";
 import { useEffect, useState } from "react";
-import { Col, Container, Row } from "react-bootstrap";
+import { Col, Container, Row, Spinner } from "react-bootstrap";
 
 const DetailCloth = ({ params }: { params: { id: string } }) => {
+  const [loading, setLoading] = useState(true);
   const [singleCloth, setSingleCloth] = useState() as any;
   useEffect(() => {
+    window.scrollTo(0, 0);
     const getClothById = () => {
       try {
         const docRef = doc(db, "clothing", params.id);
         onSnapshot(docRef, (doc) => {
           let data = doc?.data();
           setSingleCloth(data);
+          setLoading(false);
         });
       } catch (error) {
         console.error(error);
@@ -26,7 +29,15 @@ const DetailCloth = ({ params }: { params: { id: string } }) => {
     <Container style={{ marginTop: "10px" }}>
       <Row>
         <Col>
-          <ImageSlider cloth={singleCloth} />
+          {loading ? (
+            <div>
+              <Spinner animation="border" role="status">
+                <span className="visually-hidden">Loading...</span>
+              </Spinner>
+            </div>
+          ) : (
+            <ImageSlider cloth={singleCloth} />
+          )}
         </Col>
         <Col>
           <DescriptionCloth

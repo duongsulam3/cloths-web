@@ -12,9 +12,9 @@ const ImageSlider = (props: IPros) => {
   //console.log(cloth);
 
   const [index, setIndex] = useState(0);
-  const handleSelect = (selectedIndex: SetStateAction<number>) => {
-    setIndex(selectedIndex);
-  };
+  // const handleSelect = (selectedIndex: SetStateAction<number>) => {
+  //   setIndex(selectedIndex);
+  // };
 
   return (
     <Row>
@@ -22,7 +22,7 @@ const ImageSlider = (props: IPros) => {
         {cloth?.img.map((imageSrc: string, i: Key) => {
           return (
             <a key={i}>
-              <Image alt="" src={imageSrc} thumbnail loading="lazy" />
+              <Image alt="" src={imageSrc} thumbnail />
             </a>
           );
         })}
@@ -34,7 +34,7 @@ const ImageSlider = (props: IPros) => {
               <Carousel.Item key={i}>
                 <Image
                   style={{ minHeight: "376px", minWidth: "376px" }}
-                  alt=""
+                  alt="image"
                   src={imageSrc}
                   fluid
                 />
