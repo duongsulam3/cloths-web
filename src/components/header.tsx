@@ -1,14 +1,14 @@
 "use client";
-import { Form } from "react-bootstrap";
+import { Button, Form } from "react-bootstrap";
 import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import NavDropdown from "react-bootstrap/NavDropdown";
 import "material-icons/iconfont/material-icons.css";
-import Link from "next/link";
 
 import "@/styles/app.scss";
 import SearchBar from "./search-bar";
+import Link from "next/link";
 
 const Header = () => {
   return (
@@ -59,21 +59,25 @@ const Header = () => {
             }}
           >
             <SearchBar />
-            <Nav.Link href={"/"}>
+            {/* <Nav.Link href={"/"}>
               <span style={{ marginLeft: "10px" }} className="material-icons">
                 favorite_border
               </span>
-            </Nav.Link>
-            <Nav.Link href={"/"}>
-              <span style={{ marginLeft: "10px" }} className="material-icons">
-                shopping_cart
-              </span>
-            </Nav.Link>
-            <Nav.Link href={"/"}>
-              <span style={{ marginLeft: "10px" }} className="material-icons">
-                person
-              </span>
-            </Nav.Link>
+            </Nav.Link> */}
+            <Nav.Item className="nav-items">
+              <Button variant="outline-dark" className="buttons-header">
+                <Link href={"/cart"} className="link">
+                  <span className="material-icons">shopping_cart</span>
+                  {`Cart (${0})`}
+                </Link>
+              </Button>
+            </Nav.Item>
+            <Nav.Item className="nav-items">
+              <Button variant="outline-dark" className="buttons-header-login">
+                <span className="material-icons">person</span>
+                {"Login"}
+              </Button>
+            </Nav.Item>
           </div>
         </Navbar.Collapse>
       </Container>

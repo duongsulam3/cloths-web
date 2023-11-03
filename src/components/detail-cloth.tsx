@@ -51,7 +51,7 @@ const DescriptionCloth = (props: IPros) => {
     <>
       <h1>{cloth?.name}</h1>
       <h5 className="old-price">{cloth?.oldPrice}</h5>
-      <h3 style={{ marginBottom: "20px" }}>
+      <h3 style={{ marginBottom: "20px", color: "red" }}>
         {cloth?.price + " " + cloth?.currency}
       </h3>
       <ListSizes sizes={listClothSizes} />
@@ -73,7 +73,18 @@ const DescriptionCloth = (props: IPros) => {
       </p>
       <h5>Description</h5>
       <p className="block-ellipsis-detail">{cloth?.description}</p>
-      <Button style={{ width: "100%" }} size="lg">
+      <Button
+        style={{
+          display: "flex",
+          width: "100%",
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+        size="lg"
+      >
+        <span className="material-icons" style={{ paddingRight: "10px" }}>
+          shopping_cart
+        </span>
         Add To Cart
       </Button>
     </>

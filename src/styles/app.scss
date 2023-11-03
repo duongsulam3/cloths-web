@@ -111,3 +111,22 @@
 .p-quantity {
   padding-top: 20px;
 }
+
+
+
+.nav-items {
+  margin-right: 10px;
+  margin-left: 10px;
+  .buttons-header {
+    width: 140px;
+    .link{
+      display: flex;
+      text-decoration: none;
+      color: inherit;
+      justify-content: center;
+    }
+  }
+  .buttons-header-login{
+    display: flex;
+  }
+}
