@@ -37,7 +37,6 @@ export default function Home() {
         const filterData = data.docs.map((doc) => ({
           ...doc.data(),
         }));
-        // console.log(filterData);
         setClothList(filterData);
       } catch (error) {
         console.error(error);

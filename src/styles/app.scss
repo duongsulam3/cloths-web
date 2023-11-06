@@ -92,6 +92,12 @@
   margin-right: 10px;
 }
 
+.card-placeholder {
+  display: flex;
+  height: 500px;
+  justify-content: center;
+}
+
 .banner-main-placeholder {
   display: flex;
   height: 90vh;
@@ -99,6 +105,17 @@
   align-items: center;
   justify-content: center;
   background-color: #d2c9c9;
+}
+
+.banner-placeholder-cate {
+  display: flex;
+  width: 100%;
+  margin-top: 3vh;
+  min-height: 300px;
+  max-height: 400px;
+  background-color: rgb(163, 159, 159);
+  align-items: center;
+  justify-content: center;
 }
 
 .p-quantity {
