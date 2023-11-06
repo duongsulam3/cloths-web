@@ -1,14 +1,7 @@
 .carousel-caption {
-  // position: absolute;
   top: 20vh;
   bottom: auto;
-  // left: 20px;
-  // right: auto;
   background: #e1e0dc;
-  // max-height: 30vh;
-  // min-height: 20vh;
-  // max-width: 60vh;
-  // min-width: 30vh;
 }
 
 .border-red {
@@ -112,21 +105,19 @@
   padding-top: 20px;
 }
 
-
-
 .nav-items {
   margin-right: 10px;
   margin-left: 10px;
   .buttons-header {
     width: 140px;
-    .link{
+    .link {
       display: flex;
       text-decoration: none;
       color: inherit;
       justify-content: center;
     }
   }
-  .buttons-header-login{
+  .buttons-header-login {
     display: flex;
   }
 }
