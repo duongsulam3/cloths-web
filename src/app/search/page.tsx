@@ -5,7 +5,7 @@ import Filter from "@/components/filter";
 import { db } from "@/config/firebase";
 import { collection, getDocs, query, where } from "firebase/firestore";
 import { useSearchParams } from "next/navigation";
-import React, { useEffect, useState } from "react";
+import React, { Suspense, useEffect, useState } from "react";
 import { Col, Container, Row } from "react-bootstrap";
 
 const SearchPage = () => {
@@ -35,8 +35,12 @@ const SearchPage = () => {
     getSearchClothList();
   }, [queryCloth]);
 
+  const SearchFallBack = () => {
+    return <>PlaceHolder</>;
+  };
+
   return (
-    <>
+    <Suspense fallback={<SearchFallBack />}>
       <h5 style={{ position: "absolute", right: "10px" }}>
         Result for: {queryCloth}
       </h5>
@@ -50,7 +54,7 @@ const SearchPage = () => {
           </Col>
         </Row>
       </Container>
-    </>
+    </Suspense>
   );
 };
 
