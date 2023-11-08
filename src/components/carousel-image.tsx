@@ -2,12 +2,7 @@ import { Image } from "react-bootstrap";
 
 const CarouselImage = (props: any) => {
   return (
-    <Image
-      alt="carousel-image"
-      style={{ height: "90vh" }}
-      className="d-block w-100"
-      src={props.src}
-    />
+    <Image alt="carousel-image" className="img-carousel" src={props.src} />
   );
 };
 

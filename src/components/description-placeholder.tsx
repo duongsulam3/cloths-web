@@ -2,7 +2,7 @@ import { Placeholder } from "react-bootstrap";
 
 export const DescriptionPlaceHolder = () => {
   return (
-    <>
+    <div>
       <Placeholder as="h1" animation="glow">
         <Placeholder xs={12} />
       </Placeholder>
@@ -36,6 +36,6 @@ export const DescriptionPlaceHolder = () => {
       <Placeholder as="p" animation="glow">
         <Placeholder xs={12} />
       </Placeholder>
-    </>
+    </div>
   );
 };

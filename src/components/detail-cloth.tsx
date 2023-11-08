@@ -6,6 +6,7 @@ import { collection, getDocs, orderBy, query } from "firebase/firestore";
 import { db } from "@/config/firebase";
 import { Button, Placeholder } from "react-bootstrap";
 import { DescriptionPlaceHolder } from "./description-placeholder";
+import { useCart } from "@/context/cartContext";
 
 interface IPros {
   cloth: Cloth;
@@ -13,6 +14,7 @@ interface IPros {
 }
 
 const DescriptionCloth = (props: IPros) => {
+  const { addToCart } = useCart();
   let { cloth, path } = props;
 
   const [listClothSizes, setListClothSizes] = useState([] as any);
@@ -47,41 +49,42 @@ const DescriptionCloth = (props: IPros) => {
     setQuantity(quantity + 1);
   };
 
+  const handleAddToCart = () => {
+    addToCart({
+      idCart: cloth.idCloth,
+      nameCart: cloth.name,
+      priceCart: cloth.price,
+      quantityCart: quantity,
+      totalPrice: cloth.price * quantity,
+    });
+    console.log("Added");
+  };
+
   return (
     <>
       <h1>{cloth?.name}</h1>
       <h5 className="old-price">{cloth?.oldPrice}</h5>
-      <h3 style={{ marginBottom: "20px", color: "red" }}>
+      <h3 className="sale-price-detail-page">
         {cloth?.price + " " + cloth?.currency}
       </h3>
       <ListSizes sizes={listClothSizes} />
       <p className="p-quantity">
         Select quantity:
         <Button
-          style={{ marginLeft: "10px" }}
+          className="margin-left-10"
           onClick={handleRemoveClick}
           variant="outline-secondary"
         >
           -
         </Button>
-        <span style={{ marginLeft: "10px", marginRight: "10px" }}>
-          {quantity}
-        </span>
+        <span className="span-margin-l-r-10">{quantity}</span>
         <Button onClick={handleAddClick} variant="outline-secondary">
           +
         </Button>
       </p>
       <h5>Description</h5>
       <p className="block-ellipsis-detail">{cloth?.description}</p>
-      <Button
-        style={{
-          display: "flex",
-          width: "100%",
-          justifyContent: "center",
-          alignItems: "center",
-        }}
-        size="lg"
-      >
+      <Button className="btn-add-to-cart" onClick={handleAddToCart} size="lg">
         <span className="material-icons" style={{ paddingRight: "10px" }}>
           shopping_cart
         </span>

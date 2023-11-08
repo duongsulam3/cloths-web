@@ -52,12 +52,7 @@ const Header = () => {
           </Nav>
         </Navbar.Collapse>
         <Navbar.Collapse className="justify-content-end">
-          <div
-            style={{
-              display: "flex",
-              alignItems: "center",
-            }}
-          >
+          <div className="div-flex-center">
             <SearchBar />
             {/* <Nav.Link href={"/"}>
               <span style={{ marginLeft: "10px" }} className="material-icons">
@@ -74,8 +69,10 @@ const Header = () => {
             </Nav.Item>
             <Nav.Item className="nav-items">
               <Button variant="outline-dark" className="buttons-header-login">
-                <span className="material-icons">person</span>
-                {"Login"}
+                <Link href={"/login"} className="link">
+                  <span className="material-icons">person</span>
+                  {"Login"}
+                </Link>
               </Button>
             </Nav.Item>
           </div>

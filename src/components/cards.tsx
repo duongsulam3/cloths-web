@@ -18,21 +18,13 @@ const CardItem = (props: IPros) => {
       {cloths?.map((cloth, index) => {
         return (
           <Col key={index}>
-            <Link
-              style={{ color: "transparent" }}
-              href={`/cloths/${cloth.idCloth}`}
-            >
-              <Card
-                style={{
-                  paddingLeft: "0",
-                  paddingRight: "0",
-                }}
-              >
+            <Link className="card-link" href={`/cloths/${cloth.idCloth}`}>
+              <Card className="card-padding-l-r-0">
                 <Card.Img variant="top" src={cloth.img[0]} />
                 <Card.Body className="card-body d-flex flex-column">
                   <Card.Title
-                    style={{ marginBottom: "10px" }}
                     className="block-ellipsis-title"
+                    style={{ marginBottom: "10px" }}
                   >
                     {cloth.name}
                   </Card.Title>

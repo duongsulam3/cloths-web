@@ -18,15 +18,12 @@ const SearchBar = () => {
   };
 
   return (
-    <Form
-      onSubmit={handleSearch}
-      style={{ alignItems: "center", width: "100%" }}
-      className="d-flex"
-    >
-      <span style={{ marginRight: "10px" }} className="material-icons">
+    <Form className="form-search" onSubmit={handleSearch}>
+      <span className="material-icons" style={{ marginRight: "10px" }}>
         search
       </span>
       <Form.Control
+        id="search-form"
         value={query}
         type="text"
         placeholder="Shirt, Hoodie, Pant, ..."
