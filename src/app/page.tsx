@@ -9,8 +9,11 @@ import CardItem from "@/components/cards";
 import { Col, Container, Row } from "react-bootstrap";
 import PlaceHolder from "@/components/placeholder";
 import BannerPlaceHolder from "@/components/banner-placeholder";
+import { UserAuth } from "@/context/authContext";
 
 export default function Home() {
+  //const { user } = UserAuth();
+  //console.log(user);
   const [loading, setLoading] = useState(true);
   const [bannerList, setBannerList] = useState([] as any);
   const [clothList, setClothList] = useState([] as any);

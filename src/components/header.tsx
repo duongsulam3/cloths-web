@@ -9,8 +9,20 @@ import "material-icons/iconfont/material-icons.css";
 import "@/styles/app.scss";
 import SearchBar from "./search-bar";
 import Link from "next/link";
+import { UserAuth } from "@/context/authContext";
 
 const Header = () => {
+  const { user, logOut } = UserAuth();
+
+  const handleSignOut = async () => {
+    try {
+      await logOut();
+      console.log("logout");
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   return (
     <Navbar
       variant="light"
@@ -68,12 +80,23 @@ const Header = () => {
               </Button>
             </Nav.Item>
             <Nav.Item className="nav-items">
-              <Button variant="outline-dark" className="buttons-header-login">
-                <Link href={"/login"} className="link">
+              {user ? (
+                <Button
+                  onClick={handleSignOut}
+                  variant="outline-dark"
+                  className="buttons-header-login"
+                >
                   <span className="material-icons">person</span>
-                  {"Login"}
-                </Link>
-              </Button>
+                  {"Logout"}
+                </Button>
+              ) : (
+                <Button variant="outline-dark" className="buttons-header-login">
+                  <Link href={"/login"} className="link">
+                    <span className="material-icons">person</span>
+                    {"Login"}
+                  </Link>
+                </Button>
+              )}
             </Nav.Item>
           </div>
         </Navbar.Collapse>

@@ -5,6 +5,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import Header from "../components/header";
 import Footer from "../components/footer";
 import { CartProvider } from "@/context/cartContext";
+import { AuthContextProvider } from "@/context/authContext";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -21,11 +22,13 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <CartProvider>
-          <Header />
-          {children}
-          <Footer />
-        </CartProvider>
+        <AuthContextProvider>
+          <CartProvider>
+            <Header />
+            {children}
+            <Footer />
+          </CartProvider>
+        </AuthContextProvider>
       </body>
     </html>
   );
