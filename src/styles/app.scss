@@ -201,9 +201,32 @@
 
 .login-page-div {
   display: flex;
-  justify-content: center;
+  min-height: 90vh;
+  height: auto;
+  padding: 10px;
+  .col {
+    width: 50vw;
+    .div-with-bottom-border-black {
+      height: 100px;
+      border-bottom: 2px black;
+    }
+  }
+  .input-email {
+    width: 30vw;
+  }
+
+  .input-password {
+    width: 30vw;
+  }
+
   .login-button {
+    height: 50px;
     margin-top: 2vh;
     width: 30vw;
   }
+}
+
+.buttons-google-login {
+  display: flex;
+  width: 75px;
 }
