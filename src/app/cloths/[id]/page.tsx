@@ -26,7 +26,7 @@ const DetailCloth = ({ params }: { params: { id: string } }) => {
     getClothById();
   }, [params.id]);
   return (
-    <Container style={{ marginTop: "10px" }}>
+    <Container className="container-cloth-id-page">
       <Row>
         <Col>
           {loading ? (
