@@ -1,5 +1,5 @@
 "use client";
-import { Button, Form } from "react-bootstrap";
+import { Button, Form, Spinner } from "react-bootstrap";
 import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
@@ -10,9 +10,21 @@ import "@/styles/app.scss";
 import SearchBar from "./search-bar";
 import Link from "next/link";
 import { UserAuth } from "@/context/authContext";
+import { useEffect, useState } from "react";
+import BannerPlaceHolder from "./banner-placeholder";
 
 const Header = () => {
   const { user, logOut } = UserAuth();
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const checkAuth = async () => {
+      await new Promise((resolve) => setTimeout(resolve, 50));
+      setLoading(false);
+    };
+
+    checkAuth();
+  }, [user]);
 
   const handleSignOut = async () => {
     try {
@@ -80,7 +92,11 @@ const Header = () => {
               </Button>
             </Nav.Item>
             <Nav.Item className="nav-items">
-              {user ? (
+              {loading ? (
+                <Spinner animation="border" role="status">
+                  <span className="visually-hidden">Loading...</span>
+                </Spinner>
+              ) : user ? (
                 <Button
                   onClick={handleSignOut}
                   variant="outline-dark"

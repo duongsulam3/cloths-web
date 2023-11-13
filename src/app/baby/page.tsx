@@ -1,6 +1,6 @@
 "use client";
 import BannerImagePages from "@/components/banner-image-pages";
-import { BannerPlaceHolderCate } from "@/components/banner-placeholder-cate";
+import BannerPlaceHolderCate from "@/components/banner-placeholder-cate";
 import CardItem from "@/components/cards";
 import Filter from "@/components/filter";
 import CardPlaceHolder from "@/components/placeholder";

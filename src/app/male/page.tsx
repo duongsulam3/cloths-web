@@ -7,7 +7,7 @@ import { collection, getDocs, orderBy, query, where } from "firebase/firestore";
 import { db } from "@/config/firebase";
 import Filter from "@/components/filter";
 import BannerImagePages from "@/components/banner-image-pages";
-import { BannerPlaceHolderCate } from "@/components/banner-placeholder-cate";
+import BannerPlaceHolderCate from "@/components/banner-placeholder-cate";
 import CardPlaceHolder from "@/components/placeholder";
 const MaleClothPage = () => {
   const [menClothList, setMenClothList] = useState([] as any);

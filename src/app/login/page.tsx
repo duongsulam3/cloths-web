@@ -4,21 +4,35 @@ import { useEffect, useState } from "react";
 import { Button, Modal, Image, Form, Col, Row } from "react-bootstrap";
 
 import { useRouter } from "next/navigation";
+import { signInWithEmailAndPassword } from "@firebase/auth";
+import { auth } from "@/config/firebase";
 
 const LoginPage = () => {
   const route = useRouter();
-  const { user, googleSignIn, logOut } = UserAuth();
+  const { user, googleSignIn, logOut, emailSignIn } = UserAuth();
   //console.log(user);
 
   const [loading, setLoading] = useState(true);
   const [show, setShow] = useState(false);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
-  const handleSignIn = async () => {
+  const handleGoogleSignIn = async () => {
     try {
       await googleSignIn();
     } catch (error) {
       console.error(error);
     }
+    route.push("/");
+  };
+
+  const handleSignInEmailAndPassword = async () => {
+    try {
+      await emailSignIn(email, password);
+    } catch (error) {
+      console.error(error);
+    }
+    route.push("/");
   };
 
   const handleSignOut = async () => {
@@ -60,6 +74,8 @@ const LoginPage = () => {
               className="input-email"
               type="email"
               id="inputEmail5"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
             />
             <Form.Text>
               <h3>Password</h3>
@@ -70,10 +86,15 @@ const LoginPage = () => {
               type="password"
               id="inputPassword5"
               aria-describedby="passwordHelpBlock"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
             />
           </Form>
 
-          <Button className="login-button">
+          <Button
+            onClick={handleSignInEmailAndPassword}
+            className="login-button"
+          >
             <h2>Login</h2>
           </Button>
 
@@ -107,7 +128,7 @@ const LoginPage = () => {
                 </Button>
               ) : (
                 <Button
-                  onClick={handleSignIn}
+                  onClick={handleGoogleSignIn}
                   variant="outline-dark"
                   className="buttons-google-login"
                 >

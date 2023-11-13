@@ -9,7 +9,6 @@ import {
 import { auth } from "@/config/firebase";
 import { onAuthStateChanged } from "@firebase/auth/cordova";
 import { useRouter } from "next/navigation";
-import { resolve } from "path";
 
 const AuthContext = createContext();
 
@@ -22,7 +21,7 @@ export const AuthContextProvider = ({ children }) => {
     signInWithPopup(auth, provider);
   };
 
-  const emailSignIn = () => {
+  const emailSignIn = (email, password) => {
     signInWithEmailAndPassword(auth, email, password);
   };
 
@@ -33,13 +32,12 @@ export const AuthContextProvider = ({ children }) => {
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
       setUser(currentUser);
-      resolve("/");
-      //route.push("/");
     });
+
     return () => unsubscribe();
-  }, [user]);
+  }, []);
   return (
-    <AuthContext.Provider value={{ user, googleSignIn, logOut }}>
+    <AuthContext.Provider value={{ user, googleSignIn, logOut, emailSignIn }}>
       {children}
     </AuthContext.Provider>
   );
