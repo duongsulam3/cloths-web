@@ -1,18 +1,26 @@
 "use client";
 import React from "react";
 import { useCart } from "@/context/cartContext";
+import { Button } from "react-bootstrap";
 
 const Cart = () => {
-  const { carts } = useCart();
+  const { carts, removeFromCart } = useCart();
+
+  const handleRemoveBtn = (idCart: any) => {
+    removeFromCart(idCart);
+  };
+
   return (
     <div>
       <h2>Cart</h2>
       <ul>
-        {carts.map((item: any) => (
-          <li key={item.idCart}>
+        {carts.map((item: any, index: any) => (
+          <li key={index}>
             {item.nameCart} - ${item.priceCart} x {item.quantityCart} ={" "}
             {item.totalPrice}
-            <button>Remove from Cart</button>
+            <Button onClick={() => handleRemoveBtn(item.idCart)}>
+              Remove This Item
+            </Button>
           </li>
         ))}
       </ul>

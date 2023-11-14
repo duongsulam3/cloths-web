@@ -7,6 +7,7 @@ import { db } from "@/config/firebase";
 import { Button, Placeholder } from "react-bootstrap";
 import { DescriptionPlaceHolder } from "./description-placeholder";
 import { useCart } from "@/context/cartContext";
+import { useRouter } from "next/navigation";
 
 interface IPros {
   cloth: Cloth;
@@ -16,6 +17,7 @@ interface IPros {
 const DescriptionCloth = (props: IPros) => {
   const { addToCart } = useCart();
   let { cloth, path } = props;
+  const route = useRouter();
 
   const [listClothSizes, setListClothSizes] = useState([] as any);
   const [quantity, setQuantity] = useState(1);
@@ -43,7 +45,9 @@ const DescriptionCloth = (props: IPros) => {
   }
 
   const handleRemoveClick = () => {
-    setQuantity(quantity - 1);
+    if (quantity == 1) {
+      return null;
+    } else setQuantity(quantity - 1);
   };
   const handleAddClick = () => {
     setQuantity(quantity + 1);
@@ -57,7 +61,7 @@ const DescriptionCloth = (props: IPros) => {
       quantityCart: quantity,
       totalPrice: cloth.price * quantity,
     });
-    console.log("Added");
+    route.back();
   };
 
   return (

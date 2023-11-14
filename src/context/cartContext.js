@@ -1,23 +1,47 @@
 "use client";
-import { type } from "os";
-import { useState, useContext } from "react";
+import { useState, useContext, useEffect } from "react";
 import { createContext } from "react";
 
 const CartContext = createContext();
 
 export const CartProvider = ({ children }) => {
-  const [carts, setCarts] = useState([]);
+  const isClient = typeof window !== "undefined";
+  let storedCarts;
+
+  //handle if Client === undefined
+  if (isClient) {
+    try {
+      storedCarts = JSON.parse(localStorage.getItem("carts") || []);
+    } catch (error) {
+      storedCarts = [];
+    }
+  } else storedCarts = [];
+
+  const [carts, setCarts] = useState(storedCarts);
 
   const addToCart = (item) => {
-    setCarts((prevCart) => [...prevCart, item]);
+    setCarts((prevCart) => {
+      const newCart = [...prevCart, item];
+      localStorage.setItem("carts", JSON.stringify(newCart));
+      return newCart;
+    });
   };
 
-  // const removeFromCart = (id) => {
-  //   setCart((prevCart) => prevCart.filter((item) => item.id !== id));
-  // };
+  const removeFromCart = (id) => {
+    setCarts((prevCart) => {
+      const updatedCart = prevCart.filter((item) => item.idCart !== id);
+      localStorage.setItem("carts", JSON.stringify(updatedCart));
+      return updatedCart;
+    });
+    console.log(`removed item have id = ${id}`);
+  };
+
+  useEffect(() => {
+    localStorage.setItem("carts", JSON.stringify(carts));
+  }, [carts]);
 
   return (
-    <CartContext.Provider value={{ carts, addToCart }}>
+    <CartContext.Provider value={{ carts, addToCart, removeFromCart }}>
       {children}
     </CartContext.Provider>
   );
