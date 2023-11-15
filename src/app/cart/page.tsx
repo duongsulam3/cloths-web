@@ -11,7 +11,7 @@ const Cart = () => {
   };
 
   return (
-    <div className="cart-main-page">
+    <div className="div-90vh-10pad">
       <h2>Cart</h2>
       <ul>
         {carts.map((item: any, index: any) => (
