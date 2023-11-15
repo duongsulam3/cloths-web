@@ -11,9 +11,14 @@ import SearchBar from "./search-bar";
 import Link from "next/link";
 import { UserAuth } from "@/context/authContext";
 import { useEffect, useState } from "react";
-import BannerPlaceHolder from "./banner-placeholder";
+import { useCart } from "@/context/cartContext";
 
 const Header = () => {
+  const { carts } = useCart();
+  const cartCounter = carts.reduce(
+    (counter: number, item: any) => counter + item.quantityItem,
+    0
+  );
   const { user, logOut } = UserAuth();
   const [loading, setLoading] = useState(true);
 
@@ -87,7 +92,7 @@ const Header = () => {
               <Button variant="outline-dark" className="buttons-header">
                 <Link href={"/cart"} className="link">
                   <span className="material-icons">shopping_cart</span>
-                  {`Cart (${0})`}
+                  {`Cart (${cartCounter})`}
                 </Link>
               </Button>
             </Nav.Item>

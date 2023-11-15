@@ -1,5 +1,5 @@
 import { SizesCloth } from "@/types/backend";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 interface IPros {
   sizes: SizesCloth[];
@@ -10,6 +10,15 @@ const ListSizes = ({
   onSelectSize,
 }: IPros & { onSelectSize: (selectedSize: string) => void }) => {
   const [selectedSize, setSelectedSize] = useState<SizesCloth | null>(null);
+
+  useEffect(() => {
+    const defaultSize = sizes.find((size) => size.idSize === 1);
+    if (defaultSize) {
+      setSelectedSize(defaultSize);
+      onSelectSize(defaultSize.size);
+    }
+  }, [onSelectSize, sizes]);
+
   //console.log(sizes);
 
   return (

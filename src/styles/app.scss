@@ -84,12 +84,13 @@
   display: flex;
   height: 50px;
   width: 50px;
-  border: 1px solid black;
+  border: 2px solid black;
   text-align: center;
   font-size: 18px;
   align-items: center;
   justify-content: center;
   margin-right: 10px;
+  font-weight: bold;
 }
 
 .size-selected-container-box {
@@ -102,6 +103,7 @@
   align-items: center;
   justify-content: center;
   margin-right: 10px;
+  font-weight: bold;
 }
 
 .card-placeholder {
