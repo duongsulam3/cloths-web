@@ -11,14 +11,14 @@ const Cart = () => {
   };
 
   return (
-    <div>
+    <div className="cart-main-page">
       <h2>Cart</h2>
       <ul>
         {carts.map((item: any, index: any) => (
           <li key={index}>
-            {item.nameCart} - ${item.priceCart} x {item.quantityCart} ={" "}
-            {item.totalPrice}
-            <Button onClick={() => handleRemoveBtn(item.idCart)}>
+            {item.nameItem} - ${item.priceItem} x {item.quantityItem} ={" "}
+            {item.totalPriceItem}
+            <Button onClick={() => handleRemoveBtn(item.idItem)}>
               Remove This Item
             </Button>
           </li>

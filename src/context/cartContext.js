@@ -21,15 +21,37 @@ export const CartProvider = ({ children }) => {
 
   const addToCart = (item) => {
     setCarts((prevCart) => {
-      const newCart = [...prevCart, item];
-      localStorage.setItem("carts", JSON.stringify(newCart));
-      return newCart;
+      //Check if it has the same idItem
+      const existingItem = prevCart.find(
+        (existingCartItem) => existingCartItem.idItem === item.idItem
+      );
+      if (existingItem) {
+        const updatedCart = prevCart.map((cartItem) => {
+          if (cartItem.idItem === item.idItem) {
+            let quantityInCart = cartItem.quantityItem + item.quantityItem;
+            console.log(`Added duplicate item`);
+            return {
+              ...cartItem,
+              quantityItem: quantityInCart,
+              totalPriceItem: cartItem.priceItem * quantityInCart,
+            };
+          }
+          return cartItem;
+        });
+        localStorage.setItem("carts", JSON.stringify(updatedCart));
+        return updatedCart;
+      } else {
+        const newCart = [...prevCart, item];
+        localStorage.setItem("carts", JSON.stringify(newCart));
+        console.log(`Added`);
+        return newCart;
+      }
     });
   };
 
   const removeFromCart = (id) => {
     setCarts((prevCart) => {
-      const updatedCart = prevCart.filter((item) => item.idCart !== id);
+      const updatedCart = prevCart.filter((item) => item.idItem !== id);
       localStorage.setItem("carts", JSON.stringify(updatedCart));
       return updatedCart;
     });

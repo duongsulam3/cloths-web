@@ -55,11 +55,11 @@ const DescriptionCloth = (props: IPros) => {
 
   const handleAddToCart = () => {
     addToCart({
-      idCart: cloth.idCloth,
-      nameCart: cloth.name,
-      priceCart: cloth.price,
-      quantityCart: quantity,
-      totalPrice: cloth.price * quantity,
+      idItem: cloth.idCloth,
+      nameItem: cloth.name,
+      priceItem: cloth.price,
+      quantityItem: quantity,
+      totalPriceItem: cloth.price * quantity,
     });
     route.back();
   };
