@@ -21,6 +21,7 @@ const DescriptionCloth = (props: IPros) => {
 
   const [listClothSizes, setListClothSizes] = useState([] as any);
   const [quantity, setQuantity] = useState(1);
+  const [selectedSize, setSelectedSize] = useState("");
 
   useEffect(() => {
     const getClothSize = async () => {
@@ -33,6 +34,7 @@ const DescriptionCloth = (props: IPros) => {
         const data = await getDocs(sectionSizes);
         const filterData = data?.docs.map((d) => ({ ...d.data() }));
         setListClothSizes(filterData);
+        console.log(filterData);
       } catch (e) {
         console.error(e);
       }
@@ -57,6 +59,8 @@ const DescriptionCloth = (props: IPros) => {
     addToCart({
       idItem: cloth.idCloth,
       nameItem: cloth.name,
+      imgItem: cloth.img,
+      sizeItem: selectedSize,
       priceItem: cloth.price,
       quantityItem: quantity,
       totalPriceItem: cloth.price * quantity,
@@ -71,7 +75,10 @@ const DescriptionCloth = (props: IPros) => {
       <h3 className="sale-price-detail-page">
         {cloth?.price + " " + cloth?.currency}
       </h3>
-      <ListSizes sizes={listClothSizes} />
+      <ListSizes
+        sizes={listClothSizes}
+        onSelectSize={(selectedSize) => setSelectedSize(selectedSize)}
+      />
       <p className="p-quantity">
         Select quantity:
         <Button

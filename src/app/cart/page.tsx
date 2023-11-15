@@ -1,7 +1,7 @@
 "use client";
 import React from "react";
 import { useCart } from "@/context/cartContext";
-import { Button } from "react-bootstrap";
+import { Button, Image } from "react-bootstrap";
 
 const Cart = () => {
   const { carts, removeFromCart } = useCart();
@@ -16,8 +16,14 @@ const Cart = () => {
       <ul>
         {carts.map((item: any, index: any) => (
           <li key={index}>
-            {item.nameItem} - ${item.priceItem} x {item.quantityItem} ={" "}
-            {item.totalPriceItem}
+            <Image
+              roundedCircle
+              className="cart-item-img"
+              alt="thumbnail"
+              src={item.imgItem[0]}
+            />
+            Size: {item.sizeItem} {item.nameItem} - ${item.priceItem} x{" "}
+            {item.quantityItem} = {item.totalPriceItem}
             <Button onClick={() => handleRemoveBtn(item.idItem)}>
               Remove This Item
             </Button>

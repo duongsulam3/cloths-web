@@ -92,6 +92,18 @@
   margin-right: 10px;
 }
 
+.size-selected-container-box {
+  display: flex;
+  height: 50px;
+  width: 50px;
+  border: 4px solid green;
+  text-align: center;
+  font-size: 18px;
+  align-items: center;
+  justify-content: center;
+  margin-right: 10px;
+}
+
 .card-placeholder {
   display: flex;
   height: 500px;
@@ -239,4 +251,8 @@
 .div-90vh-10pad {
   padding: 10px;
   min-height: 90vh;
+  .cart-item-img {
+    height: 50px;
+    width: 50px;
+  }
 }
