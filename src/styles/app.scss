@@ -253,8 +253,37 @@
 .div-90vh-10pad {
   padding: 10px;
   min-height: 90vh;
-  .cart-item-img {
-    height: 50px;
-    width: 50px;
+
+  .div-80vw-150h {
+    flex-direction: row;
+    display: flex;
+    position: relative;
+    min-width: 80vw;
+    height: 200px;
+    border-radius: 10px;
+    box-shadow: 5px 5px 8px #888888;
+    margin-top: 20px;
+    align-items: center;
+    padding-left: 20px;
+
+    .cart-item-img {
+      height: 125px;
+      width: 125px;
+      border-radius: 10px;
+    }
+
+    .cart-item-detail {
+      flex-direction: column;
+      height: 125px;
+      text-align: left;
+    }
+
+    .cart-item-quantity {
+    }
+
+    .remove-item-btn {
+      position: absolute;
+      right: 20px;
+    }
   }
 }
