@@ -1,15 +1,7 @@
 "use client";
 import React from "react";
 import { useCart } from "@/context/cartContext";
-import {
-  Button,
-  Card,
-  Col,
-  Container,
-  Image,
-  ListGroup,
-  Row,
-} from "react-bootstrap";
+import { Button, Card, Col, Container, Image } from "react-bootstrap";
 
 const Cart = () => {
   const { carts, removeFromCart } = useCart();
@@ -33,20 +25,18 @@ const Cart = () => {
                     src={item.imgItem[0]}
                   />
                 </Col>
-                <Col xs={4}>
+                <Col xs={4} className="col-center-text">
                   <p>{item.nameItem}</p>
                   <p>Size: {item.sizeItem}</p>
                 </Col>
-                <Col xs={1}>
-                  <span className="span-margin-l-r-10">
-                    {item.quantityItem}
-                  </span>
+                <Col xs={1} className="col-center-text">
+                  <span>{item.quantityItem}</span>
                 </Col>
-                <Col xs={2}>
-                  <span className="span-margin-l-r-10">{item.priceItem}</span>
+                <Col xs={2} className="col-center-text">
+                  <span>{item.priceItem}</span>
                 </Col>
               </Col>
-              <Col>
+              <Col className="col-pad-right-10">
                 <Button onClick={() => handleRemoveBtn(item.idItem)}>
                   Remove From Cart
                 </Button>

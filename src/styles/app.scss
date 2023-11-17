@@ -266,6 +266,17 @@
     align-items: center;
     padding-left: 20px;
 
+    .col-pad-right-10 {
+      padding-right: 10px;
+    }
+
+    .col-center-text {
+      display: flex;
+      flex-direction: column;
+      text-align: left;
+      justify-content: center;
+    }
+
     .cart-item-img {
       height: 125px;
       width: 125px;
@@ -276,9 +287,6 @@
       flex-direction: column;
       height: 125px;
       text-align: left;
-    }
-
-    .cart-item-quantity {
     }
 
     .remove-item-btn {

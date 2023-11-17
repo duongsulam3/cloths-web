@@ -60,7 +60,7 @@ const DescriptionCloth = (props: IPros) => {
       idItem: cloth.idCloth,
       nameItem: cloth.name,
       imgItem: cloth.img,
-      sizeItem: selectedSize,
+      sizeItem: selectedSize == "" ? "XS" : selectedSize,
       priceItem: cloth.price,
       quantityItem: quantity,
       totalPriceItem: cloth.price * quantity,
