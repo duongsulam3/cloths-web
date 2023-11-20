@@ -27,9 +27,12 @@ const Header = () => {
       await new Promise((resolve) => setTimeout(resolve, 50));
       setLoading(false);
     };
-
     checkAuth();
   }, [user]);
+
+  const handleCartWithoutLogin = () => {
+    alert("Please Login To Use This Feature");
+  };
 
   const handleSignOut = async () => {
     try {
@@ -89,12 +92,23 @@ const Header = () => {
               </span>
             </Nav.Link> */}
             <Nav.Item className="nav-items">
-              <Button variant="outline-dark" className="buttons-header">
-                <Link href={"/cart"} className="link">
+              {user ? (
+                <Button variant="outline-dark" className="buttons-header">
+                  <Link href={"/cart"} className="link">
+                    <span className="material-icons">shopping_cart</span>
+                    {`Cart (${cartCounter})`}
+                  </Link>
+                </Button>
+              ) : (
+                <Button
+                  onClick={handleCartWithoutLogin}
+                  variant="outline-dark"
+                  className="buttons-header"
+                >
                   <span className="material-icons">shopping_cart</span>
-                  {`Cart (${cartCounter})`}
-                </Link>
-              </Button>
+                  {`Cart`}
+                </Button>
+              )}
             </Nav.Item>
             <Nav.Item className="nav-items">
               {loading ? (

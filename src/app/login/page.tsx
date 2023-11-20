@@ -8,7 +8,7 @@ import { useRouter } from "next/navigation";
 const LoginPage = () => {
   const route = useRouter();
   const { user, googleSignIn, logOut, emailSignIn, emailSignUp } = UserAuth();
-  console.log(user);
+  // console.log(user);
 
   //Loading
   const [loading, setLoading] = useState(true);

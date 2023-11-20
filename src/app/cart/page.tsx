@@ -15,6 +15,7 @@ const Cart = () => {
       <h2>Shopping Cart</h2>
       <Container>
         {carts.map((item: any, index: number) => {
+          //console.log(index);
           return (
             <div key={index} className="div-80vw-150h">
               <Col xs={10} style={{ display: "flex" }}>

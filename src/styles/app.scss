@@ -176,7 +176,9 @@
     margin-right: 10px;
     margin-left: 10px;
     .buttons-header {
+      display: flex;
       width: 140px;
+      justify-content: center;
       .link {
         display: flex;
         text-decoration: none;
