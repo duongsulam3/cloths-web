@@ -1,29 +1,33 @@
 "use client";
 import { UserAuth } from "@/context/authContext";
 import { useEffect, useState } from "react";
-import { Button, Modal, Image, Form, Col, Row } from "react-bootstrap";
+import { Button, Modal, Image, Form, Col, Row, Alert } from "react-bootstrap";
 
 import { useRouter } from "next/navigation";
-import { signInWithEmailAndPassword } from "@firebase/auth";
-import { auth } from "@/config/firebase";
 
 const LoginPage = () => {
   const route = useRouter();
-  const { user, googleSignIn, logOut, emailSignIn } = UserAuth();
-  //console.log(user);
+  const { user, googleSignIn, logOut, emailSignIn, emailSignUp } = UserAuth();
+  console.log(user);
 
+  //Loading
   const [loading, setLoading] = useState(true);
-  const [show, setShow] = useState(false);
+
+  //Modal's States
+  const [showLoginWithOtherWay, setShowLoginWithOtherWay] = useState(false);
+  const [showModalCreate, setShowModalCreate] = useState(false);
+
+  //Login
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const handleGoogleSignIn = async () => {
-    try {
-      await googleSignIn();
-    } catch (error) {
-      console.error(error);
-    }
-    route.push("/");
+  //Sign Up
+  const [createEmail, setCreateEmail] = useState("");
+  const [createPassword, setCreatePassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+
+  const handleGoogleSignIn = () => {
+    googleSignIn();
   };
 
   const handleSignInEmailAndPassword = async () => {
@@ -45,11 +49,27 @@ const LoginPage = () => {
   };
 
   const handleModalHide = () => {
-    setShow(false);
+    if (showLoginWithOtherWay == true) {
+      setShowLoginWithOtherWay(false);
+    }
+    if (showModalCreate == true) {
+      setShowModalCreate(false);
+    }
   };
 
-  const handleCreateAccount = () => {
-    route.push("/");
+  const handleShowModalCreateAccount = () => {
+    setShowModalCreate(true);
+  };
+  const handleCreateAccount = async () => {
+    try {
+      if (createPassword === confirmPassword) {
+        await emailSignUp(createEmail, createPassword);
+      } else {
+        console.log("Password doesn't match");
+      }
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   useEffect(() => {
@@ -101,14 +121,16 @@ const LoginPage = () => {
           <Button
             className="login-button"
             variant="dark"
-            onClick={() => setShow(true)}
+            onClick={() => setShowLoginWithOtherWay(true)}
           >
             Login With Different Way
           </Button>
 
+          {/* Login With Another Way Modal */}
           <Modal
-            show={show}
+            show={showLoginWithOtherWay}
             onHide={handleModalHide}
+            keyboard={false}
             dialogClassName="modal-90w"
             aria-labelledby="example-custom-modal-styling-title"
           >
@@ -137,12 +159,65 @@ const LoginPage = () => {
               )}
             </Modal.Body>
           </Modal>
+
+          {/* Create Account Modal */}
+          <Modal
+            show={showModalCreate}
+            onHide={handleModalHide}
+            backdrop="static"
+            keyboard={true}
+          >
+            <Modal.Header closeButton>
+              <Modal.Title>Register</Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+              <Form>
+                <Form.Label htmlFor="inputEmail">Email</Form.Label>
+                <Form.Control
+                  type="email"
+                  id="inputEmail"
+                  value={createEmail}
+                  onChange={(e) => setCreateEmail(e.target.value)}
+                />
+
+                <Form.Label htmlFor="inputPassword">Password</Form.Label>
+                <Form.Control
+                  type="password"
+                  id="inputPassword"
+                  autoComplete="on"
+                  aria-describedby="passwordHelpBlock"
+                  value={createPassword}
+                  onChange={(e) => setCreatePassword(e.target.value)}
+                />
+
+                <Form.Label htmlFor="inputConfirmPassword">
+                  Confirm Password
+                </Form.Label>
+                <Form.Control
+                  type="password"
+                  id="inputConfirmPassword"
+                  autoComplete="on"
+                  aria-describedby="passwordHelpBlock"
+                  value={confirmPassword}
+                  onChange={(e) => setConfirmPassword(e.target.value)}
+                />
+              </Form>
+            </Modal.Body>
+            <Modal.Footer>
+              <Button variant="secondary" onClick={handleModalHide}>
+                Close
+              </Button>
+              <Button variant="primary" onClick={handleCreateAccount}>
+                Create Account
+              </Button>
+            </Modal.Footer>
+          </Modal>
         </Col>
         <Col>
           <div className="div-with-bottom-border-black">
             <h1>Create An Account</h1>
             <Button
-              onClick={handleCreateAccount}
+              onClick={handleShowModalCreateAccount}
               className="login-button"
               variant="dark"
             >
