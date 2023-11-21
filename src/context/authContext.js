@@ -10,7 +10,7 @@ import {
 import { auth, db } from "@/config/firebase";
 import { onAuthStateChanged } from "@firebase/auth/cordova";
 import { useRouter } from "next/navigation";
-import { doc, setDoc } from "firebase/firestore";
+import { addDoc, doc, setDoc, getDoc } from "firebase/firestore";
 
 const AuthContext = createContext();
 
@@ -18,22 +18,55 @@ export const AuthContextProvider = ({ children }) => {
   const route = useRouter();
   const [user, setUser] = useState(null);
 
+  const logOut = () => {
+    signOut(auth);
+    console.log("Sign Out Successfully");
+  };
+
   const googleSignIn = () => {
     const provider = new GoogleAuthProvider();
-    signInWithPopup(auth, provider);
+    signInWithPopup(auth, provider)
+      .then(async (user) => {
+        //console.log(user.user.uid);
+        try {
+          const googleUserDocRef = doc(db, "users", user.user.uid);
+          const docSnap = await getDoc(googleUserDocRef);
+          if (docSnap.exists()) {
+            //console.log("Document exists!");
+            return null;
+          } else {
+            //console.log("Document doesn't exist!");
+            await setDoc(googleUserDocRef, {
+              userName: user.user.email,
+              isAdmin: false,
+              cart: [],
+            });
+          }
+        } catch (error) {
+          alert(error);
+        }
+      })
+      .finally(() => route.push("/"));
   };
 
   const emailSignIn = (email, password) => {
     signInWithEmailAndPassword(auth, email, password)
       .then(async (user) => {
-        console.log(user.user.uid);
+        //console.log(user.user.uid);
         try {
           const userDocRef = doc(db, "users", user.user.uid);
-          await setDoc(userDocRef, {
-            userName: user.user.email,
-            isAdmin: false,
-            cart: [],
-          });
+          const docSnap = await getDoc(userDocRef);
+          if (docSnap.exists()) {
+            console.log("Document exists!");
+            return null;
+          } else {
+            console.log("Document doesn't exist!");
+            await setDoc(userDocRef, {
+              userName: user.user.email,
+              isAdmin: false,
+              cart: [],
+            });
+          }
         } catch (error) {
           alert(error);
         }
@@ -41,10 +74,6 @@ export const AuthContextProvider = ({ children }) => {
       .catch((error) => {
         alert(error);
         route.push("/login");
-        if (!error) {
-          alert("Login Successfully");
-          window.location.assign("/");
-        }
       });
   };
 
@@ -52,17 +81,14 @@ export const AuthContextProvider = ({ children }) => {
     createUserWithEmailAndPassword(auth, email, password)
       .then(() => {
         alert("Account Create Successfully");
+        logOut();
       })
       .catch((error) => {
         console.log(error);
       })
       .finally(() => {
-        window.location.assign("/");
+        route.push("/login");
       });
-  };
-
-  const logOut = () => {
-    signOut(auth);
   };
 
   useEffect(() => {
