@@ -13,11 +13,13 @@ export const CartProvider = ({ children }) => {
     try {
       storedCarts = JSON.parse(localStorage.getItem("carts") || []);
     } catch (error) {
+      console.log(error);
       storedCarts = [];
     }
   } else storedCarts = [];
 
   const [carts, setCarts] = useState(storedCarts);
+  //console.log(carts);
 
   const addToCart = (item) => {
     setCarts((prevCart) => {

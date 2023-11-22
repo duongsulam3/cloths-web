@@ -8,6 +8,7 @@ import { Button, Placeholder } from "react-bootstrap";
 import { DescriptionPlaceHolder } from "./description-placeholder";
 import { useCart } from "@/context/cartContext";
 import { useRouter } from "next/navigation";
+import { UserAuth } from "@/context/authContext";
 
 interface IPros {
   cloth: Cloth;
@@ -16,6 +17,7 @@ interface IPros {
 
 const DescriptionCloth = (props: IPros) => {
   const { addToCart } = useCart();
+  const { user } = UserAuth();
   let { cloth, path } = props;
   const route = useRouter();
 
@@ -56,16 +58,22 @@ const DescriptionCloth = (props: IPros) => {
   };
 
   const handleAddToCart = () => {
-    addToCart({
-      idItem: cloth.idCloth,
-      nameItem: cloth.name,
-      imgItem: cloth.img,
-      sizeItem: selectedSize == "" ? "XS" : selectedSize,
-      priceItem: cloth.price,
-      quantityItem: quantity,
-      totalPriceItem: cloth.price * quantity,
-    });
-    route.back();
+    if (user) {
+      addToCart({
+        idItem: cloth.idCloth,
+        nameItem: cloth.name,
+        imgItem: cloth.img,
+        sizeItem: selectedSize == "" ? "XS" : selectedSize,
+        priceItem: cloth.price,
+        quantityItem: quantity,
+        totalPriceItem: cloth.price * quantity,
+      });
+      route.back();
+    } else {
+      alert("You have to login to use this feature! Go to login page now?");
+      route.push("/login");
+      return null;
+    }
   };
 
   return (

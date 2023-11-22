@@ -10,7 +10,7 @@ import {
 import { auth, db } from "@/config/firebase";
 import { onAuthStateChanged } from "@firebase/auth/cordova";
 import { useRouter } from "next/navigation";
-import { addDoc, doc, setDoc, getDoc } from "firebase/firestore";
+import { doc, setDoc, getDoc } from "firebase/firestore";
 
 const AuthContext = createContext();
 
@@ -108,5 +108,6 @@ export const AuthContextProvider = ({ children }) => {
 };
 
 export const UserAuth = () => {
-  return useContext(AuthContext);
+  const context = useContext(AuthContext);
+  return context;
 };

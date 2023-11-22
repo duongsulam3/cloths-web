@@ -256,6 +256,14 @@
   padding: 10px;
   min-height: 90vh;
 
+  .empty-cart-message {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 90vh;
+  }
+
   .div-80vw-150h {
     flex-direction: row;
     display: flex;
@@ -295,5 +303,23 @@
       position: absolute;
       right: 20px;
     }
+  }
+
+  .total-price-container {
+    display: flex;
+    position: fixed;
+    min-width: 30vw;
+    height: 150px;
+    background-color: white;
+    bottom: 0;
+    right: 0;
+    margin-top: 20px;
+    margin-right: 20px;
+    margin-bottom: 10px;
+    border-radius: 10px;
+    box-shadow: 5px 5px 8px #888888;
+    padding: 10px;
+    justify-content: space-between;
+    align-items: center;
   }
 }
