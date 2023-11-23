@@ -1,31 +1,30 @@
-import { Container } from "react-bootstrap";
+import Link from "next/link";
+import { Image } from "react-bootstrap";
 const Footer = () => {
   return (
-    <Container>
-      <footer className="py-3 my-4">
-        <ul className="nav justify-content-center border-bottom pb-3 mb-3">
-          <li className="nav-item">
-            <a href="/" className="nav-link px-2 text-muted">
-              ClothS
-            </a>
-          </li>
-          <li className="nav-item">
-            <p className="nav-link px-2 text-muted">About</p>
-          </li>
-          <li className="nav-item">
-            <p className="nav-link px-2 text-muted">Product</p>
-            <p className="nav-link px-2 text-muted">NextJS</p>
-            <p className="nav-link px-2 text-muted">Bootstrap 5</p>
-          </li>
-          <li className="nav-item">
-            <p className="nav-link px-2 text-muted">Contact</p>
-            <p className="nav-link px-2 text-muted">Ho Chi Minh city</p>
-            <p className="nav-link px-2 text-muted">duongsulam1234@gmail.com</p>
-          </li>
-        </ul>
-        <p className="text-center text-muted">@ 2023 Company</p>
-      </footer>
-    </Container>
+    <div className="footer">
+      <h2>mycloths.vercel.app</h2>
+      <div className="footer-link-container">
+        <Link className="footer-link" href={"/"}>
+          Home
+        </Link>
+        <Link className="footer-link" href={"/"}>
+          About
+        </Link>
+        <Link className="footer-link" href={"/"}>
+          Contact
+        </Link>
+      </div>
+      <div className="footer-logo-container">
+        <Image className="footer-logo" alt="github" src="/github_logo.png" />
+        <Image
+          className="footer-logo"
+          alt="facebook"
+          src="/facebook_logo.png"
+        />
+        <Image className="footer-logo" alt="vanhien" src="/vanhien_logo.png" />
+      </div>
+    </div>
   );
 };
 
