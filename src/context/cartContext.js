@@ -1,14 +1,21 @@
 "use client";
 import { useState, useContext, useEffect } from "react";
 import { createContext } from "react";
+import { UserAuth } from "./authContext";
+import { doc, getDoc, updateDoc } from "firebase/firestore";
+import { db } from "@/config/firebase";
 
 const CartContext = createContext();
 
 export const CartProvider = ({ children }) => {
-  const isClient = typeof window !== "undefined";
+  //User
+  const { user } = UserAuth();
+
+  //Local Storage
   let storedCarts;
 
   //handle if Client === undefined
+  const isClient = typeof window !== "undefined";
   if (isClient) {
     try {
       storedCarts = JSON.parse(localStorage.getItem("carts") || []);
@@ -19,6 +26,45 @@ export const CartProvider = ({ children }) => {
   } else storedCarts = [];
 
   const [carts, setCarts] = useState(storedCarts);
+  const [cartCounter, setCartCounter] = useState(0);
+
+  useEffect(() => {
+    if (user) {
+      const fetchUserCart = async (userID) => {
+        try {
+          const userCollectionRef = doc(db, "users", userID);
+          const userDoc = await getDoc(userCollectionRef);
+          const userData = userDoc?.data();
+          const userCart = userData?.cart;
+          // console.log(userCart.length);
+          // setCarts(userCart);
+
+          // const updatedStoredCarts = [...userCart];
+          // setCarts(updatedStoredCarts);
+          //localStorage.setItem("carts", JSON.stringify(updatedStoredCarts));
+
+          if (carts.length > -1) {
+            //Update DB
+            const updatedUserData = { ...userData, cart: [...carts] };
+            await updateDoc(userCollectionRef, updatedUserData);
+          }
+        } catch (error) {
+          console.error(error);
+        }
+      };
+
+      const updateCartCounter = () => {
+        const counter = carts.reduce(
+          (counter, item) => counter + item.quantityItem,
+          0
+        );
+        setCartCounter(counter);
+      };
+      fetchUserCart(user.uid);
+      updateCartCounter();
+    }
+  }, [carts, user]);
+
   //console.log(carts);
 
   const addToCart = (item) => {
@@ -60,12 +106,14 @@ export const CartProvider = ({ children }) => {
     console.log(`removed item have id = ${id}`);
   };
 
-  useEffect(() => {
-    localStorage.setItem("carts", JSON.stringify(carts));
-  }, [carts]);
+  // if (!userCart) {
+  //   return <div>Loading...</div>;
+  // }
 
   return (
-    <CartContext.Provider value={{ carts, addToCart, removeFromCart }}>
+    <CartContext.Provider
+      value={{ carts, cartCounter, addToCart, removeFromCart }}
+    >
       {children}
     </CartContext.Provider>
   );

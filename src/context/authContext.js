@@ -20,7 +20,8 @@ export const AuthContextProvider = ({ children }) => {
 
   const logOut = () => {
     signOut(auth);
-    console.log("Sign Out Successfully");
+    alert("Logout Successfully");
+    route.push("/");
   };
 
   const googleSignIn = () => {

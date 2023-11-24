@@ -4,10 +4,10 @@ import { useCart } from "@/context/cartContext";
 import { Button, Col, Container, Image } from "react-bootstrap";
 
 const Cart = () => {
-  const { carts, removeFromCart } = useCart();
+  const { carts, cartCounter, removeFromCart } = useCart();
   // console.log(carts);
 
-  const isEmptyCart = carts.length === 0;
+  const isEmptyCart = cartCounter == 0;
   let totalCart = 0;
 
   const handleRemoveBtn = (idCart: any) => {

@@ -14,13 +14,9 @@ import { useEffect, useState } from "react";
 import { useCart } from "@/context/cartContext";
 
 const Header = () => {
-  const { carts } = useCart();
-  const cartCounter = carts.reduce(
-    (counter: number, item: any) => counter + item.quantityItem,
-    0
-  );
   const { user, logOut } = UserAuth();
   const [loading, setLoading] = useState(true);
+  const { cartCounter } = useCart();
 
   useEffect(() => {
     const checkAuth = async () => {
@@ -28,7 +24,7 @@ const Header = () => {
       setLoading(false);
     };
     checkAuth();
-  }, [user]);
+  }, []);
 
   const handleCartWithoutLogin = () => {
     alert("Please Login To Use This Feature");
