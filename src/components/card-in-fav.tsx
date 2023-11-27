@@ -2,14 +2,14 @@
 import { Cloth } from "@/types/backend";
 import Card from "react-bootstrap/Card";
 import "@/styles/app.scss";
-import { Row, Col } from "react-bootstrap";
+import { Row, Col, Button, CardFooter } from "react-bootstrap";
 import Link from "next/link";
 
 interface IPros {
   cloths: Cloth[];
 }
 
-const CardItem = (props: IPros) => {
+const CardInFav = (props: IPros) => {
   let { cloths } = props;
   return (
     <Row xs={1} sm={2} md={4} className="g-3">
@@ -19,6 +19,9 @@ const CardItem = (props: IPros) => {
             <Link className="card-link" href={`/cloths/${cloth.idCloth}`}>
               <Card className="card-padding-l-r-0">
                 <Card.Img variant="top" src={cloth.img[0]} />
+                <Card.ImgOverlay>
+                  <span className="material-icons">favorite</span>
+                </Card.ImgOverlay>
                 <Card.Body className="card-body d-flex flex-column">
                   <Card.Title
                     className="block-ellipsis-title"
@@ -36,6 +39,11 @@ const CardItem = (props: IPros) => {
                     {cloth.price + " " + cloth.currency}
                   </Card.Title>
                 </Card.Body>
+                <CardFooter className="card-footer-pad0">
+                  <Button className="btn-remove-from-fav">
+                    Remove From Favorite
+                  </Button>
+                </CardFooter>
               </Card>
             </Link>
           </Col>
@@ -45,4 +53,4 @@ const CardItem = (props: IPros) => {
   );
 };
 
-export default CardItem;
+export default CardInFav;

@@ -29,40 +29,16 @@ export const CartProvider = ({ children }) => {
   const [cartCounter, setCartCounter] = useState(0);
 
   useEffect(() => {
-    if (user) {
-      const fetchUserCart = async (userID) => {
-        try {
-          const userCollectionRef = doc(db, "users", userID);
-          const userDoc = await getDoc(userCollectionRef);
-          const userData = userDoc?.data();
-          const userCart = userData?.cart;
-          // console.log(userCart.length);
-          // setCarts(userCart);
+    localStorage.setItem("carts", JSON.stringify(carts));
 
-          // const updatedStoredCarts = [...userCart];
-          // setCarts(updatedStoredCarts);
-          //localStorage.setItem("carts", JSON.stringify(updatedStoredCarts));
-
-          if (carts.length > -1) {
-            //Update DB
-            const updatedUserData = { ...userData, cart: [...carts] };
-            await updateDoc(userCollectionRef, updatedUserData);
-          }
-        } catch (error) {
-          console.error(error);
-        }
-      };
-
-      const updateCartCounter = () => {
-        const counter = carts.reduce(
-          (counter, item) => counter + item.quantityItem,
-          0
-        );
-        setCartCounter(counter);
-      };
-      fetchUserCart(user.uid);
-      updateCartCounter();
-    }
+    const updateCartCounter = () => {
+      const counter = carts.reduce(
+        (counter, item) => counter + item.quantityItem,
+        0
+      );
+      setCartCounter(counter);
+    };
+    updateCartCounter();
   }, [carts, user]);
 
   //console.log(carts);
@@ -121,8 +97,5 @@ export const CartProvider = ({ children }) => {
 
 export const useCart = () => {
   const context = useContext(CartContext);
-  if (!context) {
-    throw new Error("useCart must be used within a CartProvider");
-  }
   return context;
 };

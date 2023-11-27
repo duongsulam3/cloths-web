@@ -12,11 +12,13 @@ import Link from "next/link";
 import { UserAuth } from "@/context/authContext";
 import { useEffect, useState } from "react";
 import { useCart } from "@/context/cartContext";
+import { useRouter } from "next/navigation";
 
 const Header = () => {
   const { user, logOut } = UserAuth();
   const [loading, setLoading] = useState(true);
   const { cartCounter } = useCart();
+  const route = useRouter();
 
   useEffect(() => {
     const checkAuth = async () => {
@@ -26,8 +28,13 @@ const Header = () => {
     checkAuth();
   }, []);
 
-  const handleCartWithoutLogin = () => {
-    alert("Please Login To Use This Feature");
+  const handleBtnFav = () => {
+    if (!user) {
+      alert("You have to login to use this feature, go to login page now?");
+      route.push("/login");
+    } else {
+      route.push("/favorite");
+    }
   };
 
   const handleSignOut = async () => {
@@ -87,23 +94,21 @@ const Header = () => {
               </span>
             </Nav.Link> */}
             <Nav.Item className="nav-items">
-              {user ? (
-                <Button variant="outline-dark" className="buttons-header">
-                  <Link href={"/cart"} className="link">
-                    <span className="material-icons">shopping_cart</span>
-                    {`Cart (${cartCounter})`}
-                  </Link>
-                </Button>
-              ) : (
-                <Button
-                  onClick={handleCartWithoutLogin}
-                  variant="outline-dark"
-                  className="buttons-header"
-                >
+              <Button variant="outline-dark" className="buttons-header-cart">
+                <Link href={"/cart"} className="link">
                   <span className="material-icons">shopping_cart</span>
-                  {`Cart`}
-                </Button>
-              )}
+                  {`Cart (${cartCounter})`}
+                </Link>
+              </Button>
+            </Nav.Item>
+            <Nav.Item className="nav-items">
+              <Button
+                onClick={handleBtnFav}
+                variant="outline-dark"
+                className="buttons-header-fav"
+              >
+                <span className="material-icons">favorite</span>
+              </Button>
             </Nav.Item>
             <Nav.Item className="nav-items">
               {loading ? (

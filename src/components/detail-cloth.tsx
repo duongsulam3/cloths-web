@@ -2,13 +2,14 @@ import { Cloth } from "@/types/backend";
 import "@/styles/app.scss";
 import ListSizes from "./list-size";
 import { useEffect, useState } from "react";
-import { collection, getDocs, orderBy, query } from "firebase/firestore";
+import { collection, doc, getDocs, orderBy, query } from "firebase/firestore";
 import { db } from "@/config/firebase";
-import { Button, Placeholder } from "react-bootstrap";
+import { Button, Placeholder, Row } from "react-bootstrap";
 import { DescriptionPlaceHolder } from "./description-placeholder";
 import { useCart } from "@/context/cartContext";
 import { useRouter } from "next/navigation";
 import { UserAuth } from "@/context/authContext";
+import { useFav } from "@/context/favContext";
 
 interface IPros {
   cloth: Cloth;
@@ -17,6 +18,7 @@ interface IPros {
 
 const DescriptionCloth = (props: IPros) => {
   const { addToCart } = useCart();
+  const { addToFav } = useFav();
   const { user } = UserAuth();
   let { cloth, path } = props;
   const route = useRouter();
@@ -58,21 +60,27 @@ const DescriptionCloth = (props: IPros) => {
   };
 
   const handleAddToCart = () => {
+    addToCart({
+      idItem: cloth.idCloth,
+      nameItem: cloth.name,
+      imgItem: cloth.img,
+      sizeItem: selectedSize == "" ? "XS" : selectedSize,
+      priceItem: cloth.price,
+      quantityItem: quantity,
+      totalPriceItem: cloth.price * quantity,
+    });
+    route.push("/cart");
+  };
+
+  const handleAddToFav = () => {
     if (user) {
-      addToCart({
-        idItem: cloth.idCloth,
-        nameItem: cloth.name,
-        imgItem: cloth.img,
-        sizeItem: selectedSize == "" ? "XS" : selectedSize,
-        priceItem: cloth.price,
-        quantityItem: quantity,
-        totalPriceItem: cloth.price * quantity,
+      addToFav({
+        itemID: cloth?.idCloth,
       });
-      route.back();
+      route.push("/");
     } else {
-      alert("You have to login to use this feature! Go to login page now?");
+      alert("You have to login to use this feature! Go to login page?");
       route.push("/login");
-      return null;
     }
   };
 
@@ -103,12 +111,17 @@ const DescriptionCloth = (props: IPros) => {
       </p>
       <h5>Description</h5>
       <p className="block-ellipsis-detail">{cloth?.description}</p>
-      <Button className="btn-add-to-cart" onClick={handleAddToCart} size="lg">
-        <span className="material-icons" style={{ paddingRight: "10px" }}>
-          shopping_cart
-        </span>
-        Add To Cart
-      </Button>
+      <div className="div-btn-fav-cart">
+        <Button className="btn-favorite" onClick={handleAddToFav} size="lg">
+          <span className="material-icons">favorite</span>
+        </Button>
+        <Button className="btn-add-to-cart" onClick={handleAddToCart} size="lg">
+          <span className="material-icons" style={{ paddingRight: "10px" }}>
+            shopping_cart
+          </span>
+          Add To Cart
+        </Button>
+      </div>
     </>
   );
 };

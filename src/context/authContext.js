@@ -32,15 +32,20 @@ export const AuthContextProvider = ({ children }) => {
         try {
           const googleUserDocRef = doc(db, "users", user.user.uid);
           const docSnap = await getDoc(googleUserDocRef);
+          const data = docSnap?.data();
+          const userFavList = data?.favoriteCloth;
           if (docSnap.exists()) {
             //console.log("Document exists!");
-            return null;
+            await setDoc(googleUserDocRef, {
+              ...data,
+              favoriteCloth: [...userFavList],
+            });
           } else {
             //console.log("Document doesn't exist!");
             await setDoc(googleUserDocRef, {
               userName: user.user.email,
               isAdmin: false,
-              cart: [],
+              favoriteCloth: [],
             });
           }
         } catch (error) {
@@ -59,13 +64,18 @@ export const AuthContextProvider = ({ children }) => {
           const docSnap = await getDoc(userDocRef);
           if (docSnap.exists()) {
             console.log("Document exists!");
-            return null;
+            const data = docSnap?.data();
+            const userFavList = data?.favoriteCloth;
+            await setDoc(userDocRef, {
+              ...data,
+              favoriteCloth: [...userFavList],
+            });
           } else {
             console.log("Document doesn't exist!");
             await setDoc(userDocRef, {
               userName: user.user.email,
               isAdmin: false,
-              cart: [],
+              favoriteCloth: [],
             });
           }
         } catch (error) {
