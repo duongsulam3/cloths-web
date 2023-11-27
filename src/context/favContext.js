@@ -69,11 +69,19 @@ export const FavProvider = ({ children }) => {
     }
   };
 
-  const removeFromFav = (id) => {
-    setFav((prevFav) => {
-      const updatedFav = prevFav.filter((item) => item.idItem !== id);
-      return updatedFav;
+  const removeFromFav = async (id) => {
+    // setFav((prevFav) => {
+    //   const updatedFav = prevFav.filter((item) => item.idItem !== id);
+    //   return updatedFav;
+    // });
+
+    const updatedFav = fav.filter((favItem) => favItem.itemID !== id);
+    // console.log(updatedFav);
+    const userCollectionRef = doc(db, "users", user.uid);
+    await updateDoc(userCollectionRef, {
+      favoriteCloth: [...updatedFav],
     });
+    setFav(updatedFav);
     console.log(`removed item have id = ${id}`);
   };
 

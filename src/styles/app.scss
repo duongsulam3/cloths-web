@@ -138,7 +138,8 @@
 }
 
 .card-link {
-  color: transparent;
+  text-decoration: none;
+  color: inherit;
   .card-padding-l-r-0 {
     padding-left: 0;
     padding-right: 0;
@@ -334,7 +335,7 @@
   .total-price-container {
     display: flex;
     position: fixed;
-    min-width: 30vw;
+    min-width: 50vw;
     height: 150px;
     background-color: white;
     bottom: 0;
@@ -396,11 +397,8 @@
   }
 }
 
-.card-footer-pad0 {
-  padding: 0;
-  .btn-remove-from-fav {
-    width: -webkit-fill-available;
-    border-top-left-radius: 0;
-    border-top-right-radius: 0;
-  }
+.btn-remove-from-fav {
+  margin-top: 5px;
+  width: -webkit-fill-available;
+  border-radius: 5px;
 }

@@ -17,10 +17,11 @@ interface IPros {
 }
 
 const DescriptionCloth = (props: IPros) => {
+  const { cloth, path } = props;
   const { addToCart } = useCart();
   const { addToFav } = useFav();
   const { user } = UserAuth();
-  let { cloth, path } = props;
+
   const route = useRouter();
 
   const [listClothSizes, setListClothSizes] = useState([] as any);
@@ -38,7 +39,7 @@ const DescriptionCloth = (props: IPros) => {
         const data = await getDocs(sectionSizes);
         const filterData = data?.docs.map((d) => ({ ...d.data() }));
         setListClothSizes(filterData);
-        console.log(filterData);
+        // console.log(filterData);
       } catch (e) {
         console.error(e);
       }
@@ -76,8 +77,8 @@ const DescriptionCloth = (props: IPros) => {
     if (user) {
       addToFav({
         itemID: cloth?.idCloth,
+        itemName: cloth?.name,
       });
-      route.push("/");
     } else {
       alert("You have to login to use this feature! Go to login page?");
       route.push("/login");

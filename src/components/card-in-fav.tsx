@@ -4,13 +4,20 @@ import Card from "react-bootstrap/Card";
 import "@/styles/app.scss";
 import { Row, Col, Button, CardFooter } from "react-bootstrap";
 import Link from "next/link";
+import { useFav } from "@/context/favContext";
 
 interface IPros {
   cloths: Cloth[];
 }
 
 const CardInFav = (props: IPros) => {
-  let { cloths } = props;
+  const { cloths } = props;
+  const { removeFromFav } = useFav();
+
+  const handleRemoveFav = (id: string) => {
+    removeFromFav(id);
+  };
+
   return (
     <Row xs={1} sm={2} md={4} className="g-3">
       {cloths?.map((cloth, index) => {
@@ -39,13 +46,14 @@ const CardInFav = (props: IPros) => {
                     {cloth.price + " " + cloth.currency}
                   </Card.Title>
                 </Card.Body>
-                <CardFooter className="card-footer-pad0">
-                  <Button className="btn-remove-from-fav">
-                    Remove From Favorite
-                  </Button>
-                </CardFooter>
               </Card>
             </Link>
+            <Button
+              onClick={() => handleRemoveFav(cloth?.idCloth)}
+              className="btn-remove-from-fav"
+            >
+              Remove From Favorite
+            </Button>
           </Col>
         );
       })}

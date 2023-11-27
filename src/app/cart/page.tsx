@@ -14,6 +14,10 @@ const Cart = () => {
     removeFromCart(idCart);
   };
 
+  const handleCheckOut = () => {
+    return null;
+  };
+
   return (
     <div className="div-90vh-10pad">
       {isEmptyCart ? (
@@ -60,7 +64,7 @@ const Cart = () => {
           })}
           <div className="total-price-container">
             <h2>Total Price: {totalCart}</h2>
-            <Button>Check out</Button>
+            <Button onClick={handleCheckOut}>Check out</Button>
           </div>
         </Container>
       )}
