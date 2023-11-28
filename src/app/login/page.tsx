@@ -37,7 +37,6 @@ const LoginPage = () => {
     } catch (error) {
       console.error(error);
     }
-    route.push("/");
   };
 
   const handleSignOut = async () => {

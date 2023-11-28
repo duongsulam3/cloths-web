@@ -17,11 +17,12 @@ const AuthContext = createContext();
 export const AuthContextProvider = ({ children }) => {
   const route = useRouter();
   const [user, setUser] = useState(null);
+  const [loading, setLoading] = useState(true);
 
   const logOut = () => {
     signOut(auth);
     alert("Logout Successfully");
-    route.push("/");
+    window.location.href = "/";
   };
 
   const googleSignIn = () => {
@@ -52,7 +53,7 @@ export const AuthContextProvider = ({ children }) => {
           alert(error);
         }
       })
-      .finally(() => route.push("/"));
+      .finally(() => (window.location.href = "/"));
   };
 
   const emailSignIn = (email, password) => {
@@ -85,7 +86,9 @@ export const AuthContextProvider = ({ children }) => {
       .catch((error) => {
         alert(error);
         route.push("/login");
-      });
+        return null;
+      })
+      .finally(() => (window.location.href = "/"));
   };
 
   const emailSignUp = (email, password) => {
@@ -97,20 +100,21 @@ export const AuthContextProvider = ({ children }) => {
         console.log(error);
       })
       .finally(() => {
-        route.push("/");
+        window.location.href = "/";
       });
   };
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
       setUser(currentUser);
+      setLoading(false);
     });
 
     return () => unsubscribe();
   }, []);
   return (
     <AuthContext.Provider
-      value={{ user, googleSignIn, logOut, emailSignIn, emailSignUp }}
+      value={{ user, loading, googleSignIn, logOut, emailSignIn, emailSignUp }}
     >
       {children}
     </AuthContext.Provider>
