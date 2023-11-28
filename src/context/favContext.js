@@ -23,11 +23,10 @@ export const FavProvider = ({ children }) => {
 
   useEffect(() => {
     if (user) {
-      //console.log(user.uid);
       const fetchUserData = async (userID) => {
         try {
-          const userCollectionRef = doc(db, "users", userID);
-          const docSnap = await getDoc(userCollectionRef);
+          const userDocRef = doc(db, "users", userID);
+          const docSnap = await getDoc(userDocRef);
           const userData = docSnap?.data();
           const userFavList = userData?.favoriteCloth || [];
           if (userFavList.length >= 0) {

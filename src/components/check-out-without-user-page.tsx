@@ -1,7 +1,10 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Button, Form } from "react-bootstrap";
 import FormInput from "./form-input";
 import { useCart } from "@/context/cartContext";
+import { collection, addDoc } from "firebase/firestore";
+import { db } from "@/config/firebase";
+import { useRouter } from "next/navigation";
 
 const CheckOutWithoutUser = () => {
   const { carts, totalCart } = useCart();
@@ -11,11 +14,33 @@ const CheckOutWithoutUser = () => {
   const [address, setAddress] = useState("");
   const [phone, setPhone] = useState("");
 
-  const handleOrder = () => {
-    console.log(
-      `firstName: ${firstName}, lastName: ${lastName}, address: ${address}, phone: ${phone}, carts: ${carts}, totalCart: ${totalCart}`
-    );
-    return null;
+  const handleOrder = async () => {
+    try {
+      const billRef = collection(db, "billWithNoUser");
+      const userData = {
+        firstName: firstName,
+        lastName: lastName,
+        address: address,
+        phoneNumber: phone,
+        cartItems: carts,
+        billPrice: totalCart,
+      };
+      await addDoc(billRef, userData)
+        .then((docRef) => {
+          console.log(docRef.id);
+        })
+        .catch((error) => {
+          console.log(error);
+          return null;
+        })
+        .finally(() => {
+          console.log("Your order is well taking");
+          localStorage.clear();
+          window.location.href = "/success-order";
+        });
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   return (

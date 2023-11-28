@@ -7,18 +7,18 @@ import { getDocs, collection } from "firebase/firestore";
 import { db } from "../config/firebase";
 import CardItem from "@/components/cards";
 import { Col, Container, Row } from "react-bootstrap";
-import PlaceHolder from "@/components/placeholder";
 import BannerPlaceHolder from "@/components/banner-placeholder";
-import { UserAuth } from "@/context/authContext";
 
 export default function Home() {
-  //const { user } = UserAuth();
-  //console.log(user);
+  // States
   const [loading, setLoading] = useState(true);
   const [bannerList, setBannerList] = useState([] as any);
   const [clothList, setClothList] = useState([] as any);
+
   useEffect(() => {
     window.scrollTo(0, 0);
+
+    //Fetching Banner List
     const getBannerList = async () => {
       try {
         const bannerCollectionRef = collection(db, "banner");
@@ -32,6 +32,8 @@ export default function Home() {
         console.error(e);
       }
     };
+
+    // Fetching Cloth List
     const getClothList = async () => {
       try {
         const clothCollectionRef = collection(db, "clothing");
@@ -45,6 +47,7 @@ export default function Home() {
         console.error(error);
       }
     };
+
     getBannerList();
     getClothList();
   }, []);
