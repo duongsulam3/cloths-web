@@ -91,14 +91,13 @@ export const AuthContextProvider = ({ children }) => {
   const emailSignUp = (email, password) => {
     createUserWithEmailAndPassword(auth, email, password)
       .then(() => {
-        alert("Account Create Successfully");
         logOut();
       })
       .catch((error) => {
         console.log(error);
       })
       .finally(() => {
-        route.push("/login");
+        route.push("/");
       });
   };
 

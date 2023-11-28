@@ -2,20 +2,22 @@
 import React from "react";
 import { useCart } from "@/context/cartContext";
 import { Button, Col, Container, Image } from "react-bootstrap";
+import { UserAuth } from "@/context/authContext";
+import { useRouter } from "next/navigation";
 
 const Cart = () => {
-  const { carts, cartCounter, removeFromCart } = useCart();
-  // console.log(carts);
+  const { carts, cartCounter, totalCart, removeFromCart } = useCart();
+  const { user } = UserAuth();
+  const route = useRouter();
 
   const isEmptyCart = cartCounter == 0;
-  let totalCart = 0;
 
   const handleRemoveBtn = (idCart: any) => {
     removeFromCart(idCart);
   };
 
   const handleCheckOut = () => {
-    return null;
+    route.push("/check-out");
   };
 
   return (
@@ -30,7 +32,7 @@ const Cart = () => {
           <h2>Shopping Cart</h2>
           {carts.map((item: any, index: number) => {
             //console.log(index);
-            totalCart += item.totalPriceItem;
+
             return (
               <div key={index} className="div-80vw-150h">
                 <Col xs={10} style={{ display: "flex" }}>

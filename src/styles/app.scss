@@ -254,11 +254,8 @@
       border-bottom: 2px black;
     }
   }
-  .input-email {
-    width: 30vw;
-  }
 
-  .input-password {
+  .input-30vw {
     width: 30vw;
   }
 
@@ -401,4 +398,24 @@
   margin-top: 5px;
   width: -webkit-fill-available;
   border-radius: 5px;
+}
+
+.div-90vh-pad10-flex {
+  display: flex;
+  height: 90vh;
+  padding: 10px;
+  flex-direction: column;
+  align-items: center;
+
+  Form {
+    display: flex;
+    flex-direction: column;
+    width: 20vw;
+    align-items: center;
+  }
+
+  Button {
+    margin-top: 20px;
+    width: 20vw;
+  }
 }

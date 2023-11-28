@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { Button, Modal, Image, Form, Col, Row, Alert } from "react-bootstrap";
 
 import { useRouter } from "next/navigation";
+import FormInput from "@/components/form-input";
 
 const LoginPage = () => {
   const route = useRouter();
@@ -42,7 +43,7 @@ const LoginPage = () => {
   const handleSignOut = async () => {
     try {
       await logOut();
-      console.log("logout");
+      // console.log("logout");
     } catch (error) {
       console.error(error);
     }
@@ -60,15 +61,18 @@ const LoginPage = () => {
   const handleShowModalCreateAccount = () => {
     setShowModalCreate(true);
   };
+
   const handleCreateAccount = async () => {
-    try {
-      if (createPassword === confirmPassword) {
-        await emailSignUp(createEmail, createPassword);
-      } else {
-        console.log("Password doesn't match");
+    if (createPassword === confirmPassword) {
+      try {
+        {
+          await emailSignUp(createEmail, createPassword);
+        }
+      } catch (error) {
+        console.error(error);
       }
-    } catch (error) {
-      console.error(error);
+    } else {
+      alert("Password doesn't match");
     }
   };
 
@@ -86,28 +90,11 @@ const LoginPage = () => {
         <Col>
           <h1>Login</h1>
           <Form>
-            <Form.Text>
-              <h3>Email</h3>
-            </Form.Text>
-            <Form.Control
-              autoComplete="username"
-              className="input-email"
-              type="email"
-              id="inputEmail5"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-            />
-            <Form.Text>
-              <h3>Password</h3>
-            </Form.Text>
-            <Form.Control
-              autoComplete="current-password"
-              className="input-password"
+            <FormInput title="Email" type="email" sharedValue={setEmail} />
+            <FormInput
+              title="Password"
               type="password"
-              id="inputPassword5"
-              aria-describedby="passwordHelpBlock"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
+              sharedValue={setPassword}
             />
           </Form>
 
@@ -117,7 +104,6 @@ const LoginPage = () => {
           >
             <h2>Login</h2>
           </Button>
-
           <Button
             className="login-button"
             variant="dark"
@@ -172,34 +158,22 @@ const LoginPage = () => {
             </Modal.Header>
             <Modal.Body>
               <Form>
-                <Form.Label htmlFor="inputEmail">Email</Form.Label>
-                <Form.Control
+                <FormInput
                   type="email"
-                  id="inputEmail"
-                  value={createEmail}
-                  onChange={(e) => setCreateEmail(e.target.value)}
+                  title="Email"
+                  sharedValue={setCreateEmail}
                 />
 
-                <Form.Label htmlFor="inputPassword">Password</Form.Label>
-                <Form.Control
+                <FormInput
                   type="password"
-                  id="inputPassword"
-                  autoComplete="on"
-                  aria-describedby="passwordHelpBlock"
-                  value={createPassword}
-                  onChange={(e) => setCreatePassword(e.target.value)}
+                  title="Password"
+                  sharedValue={setCreatePassword}
                 />
 
-                <Form.Label htmlFor="inputConfirmPassword">
-                  Confirm Password
-                </Form.Label>
-                <Form.Control
+                <FormInput
                   type="password"
-                  id="inputConfirmPassword"
-                  autoComplete="on"
-                  aria-describedby="passwordHelpBlock"
-                  value={confirmPassword}
-                  onChange={(e) => setConfirmPassword(e.target.value)}
+                  title="Confirm Password"
+                  sharedValue={setConfirmPassword}
                 />
               </Form>
             </Modal.Body>

@@ -27,6 +27,7 @@ export const CartProvider = ({ children }) => {
 
   const [carts, setCarts] = useState(storedCarts);
   const [cartCounter, setCartCounter] = useState(0);
+  const [totalCart, setTotalCart] = useState(0);
 
   useEffect(() => {
     localStorage.setItem("carts", JSON.stringify(carts));
@@ -38,7 +39,19 @@ export const CartProvider = ({ children }) => {
       );
       setCartCounter(counter);
     };
+
+    const updateTotalCart = () => {
+      const counter = carts.reduce(
+        (counter, item) => counter + item.totalPriceItem,
+        0
+      );
+      setTotalCart(counter);
+    };
+
     updateCartCounter();
+    if (carts.length > -1) {
+      updateTotalCart();
+    }
   }, [carts, user]);
 
   //console.log(carts);
@@ -53,7 +66,7 @@ export const CartProvider = ({ children }) => {
         const updatedCart = prevCart.map((cartItem) => {
           if (cartItem.idItem === item.idItem) {
             let quantityInCart = cartItem.quantityItem + item.quantityItem;
-            console.log(`Added duplicate item`);
+            // console.log(`Added duplicate item`);
             return {
               ...cartItem,
               quantityItem: quantityInCart,
@@ -67,7 +80,7 @@ export const CartProvider = ({ children }) => {
       } else {
         const newCart = [...prevCart, item];
         localStorage.setItem("carts", JSON.stringify(newCart));
-        console.log(`Added`);
+        // console.log(`Added`);
         return newCart;
       }
     });
@@ -88,7 +101,7 @@ export const CartProvider = ({ children }) => {
 
   return (
     <CartContext.Provider
-      value={{ carts, cartCounter, addToCart, removeFromCart }}
+      value={{ carts, cartCounter, totalCart, addToCart, removeFromCart }}
     >
       {children}
     </CartContext.Provider>
