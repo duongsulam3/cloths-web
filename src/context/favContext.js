@@ -22,7 +22,6 @@ export const FavProvider = ({ children }) => {
   const [fav, setFav] = useState([]);
 
   useEffect(() => {
-    console.log(user);
     if (user) {
       const fetchUserData = async (userID) => {
         try {

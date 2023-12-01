@@ -10,7 +10,6 @@ const AddBanner = () => {
   const [imgURL, setImgURL] = useState("");
 
   const handleSubmit = async () => {
-    // console.log(caption, imgURL);
     try {
       const bannerCollectionRef = collection(db, "banner");
       const bannerData = {

@@ -2,14 +2,10 @@
 import { UserAuth } from "@/context/authContext";
 import { useEffect, useState } from "react";
 import { Button, Modal, Image, Form, Col, Row, Alert } from "react-bootstrap";
-
-import { useRouter } from "next/navigation";
 import FormInput from "@/components/form-input";
 
 const LoginPage = () => {
-  const route = useRouter();
   const { user, googleSignIn, logOut, emailSignIn, emailSignUp } = UserAuth();
-  // console.log(user);
 
   //Loading
   const [loading, setLoading] = useState(true);
@@ -42,7 +38,6 @@ const LoginPage = () => {
   const handleSignOut = async () => {
     try {
       await logOut();
-      // console.log("logout");
     } catch (error) {
       console.error(error);
     }

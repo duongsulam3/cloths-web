@@ -21,11 +21,11 @@ const TabsDashboard = () => {
         <UploadBannerImage />
         <UploadClothImage />
       </Tab>
-      <Tab eventKey="banner" title="Add Banner">
+      <Tab eventKey="add" title="Add Banner">
         <AddBanner />
       </Tab>
-      <Tab eventKey="contact" title="Contact">
-        Tab content for Contact
+      <Tab eventKey="update/delete" title="Update/Delete Banner">
+        Tab Update & Delete Banners
       </Tab>
     </Tabs>
   );
