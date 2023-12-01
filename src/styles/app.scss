@@ -349,7 +349,6 @@
 }
 
 .footer {
-  position: relative;
   margin-top: 10px;
   height: 60vh;
   max-width: 100vw;
@@ -403,7 +402,7 @@
 
 .div-90vh-pad10-flex {
   display: flex;
-  height: 90vh;
+  min-height: 90vh;
   padding: 10px;
   flex-direction: column;
   align-items: center;
@@ -428,4 +427,26 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
+}
+
+.upload-div {
+  border-bottom: 5px solid black;
+  padding-bottom: 20px;
+  margin-bottom: 10px;
+}
+
+.upload-success-div {
+  height: 50vh;
+  width: 50vw;
+  padding: 5px;
+  margin-top: 5px;
+  background-color: aquamarine;
+  border-left: 10px solid rgb(128, 0, 255);
+}
+
+.tab-add-container {
+  min-width: 50vw;
+  flex-direction: row;
+  padding: 5px;
+  margin: 0;
 }

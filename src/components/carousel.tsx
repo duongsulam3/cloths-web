@@ -18,10 +18,10 @@ const CarouselBanner = (props: IProps) => {
 
   return (
     <Carousel fade variant="dark">
-      {banners?.map((banner) => {
+      {banners?.map((banner, i) => {
         return (
-          <Carousel.Item key={banner.id}>
-            <CarouselImage src={banner.img} />
+          <Carousel.Item key={i}>
+            <CarouselImage src={banner.img} caption={banner.caption} />
           </Carousel.Item>
         );
       })}

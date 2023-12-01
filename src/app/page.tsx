@@ -37,7 +37,6 @@ export default function Home() {
     const getClothList = async () => {
       try {
         const clothCollectionRef = collection(db, "clothing");
-
         const data = await getDocs(clothCollectionRef);
         const filterData = data.docs.map((doc) => ({
           ...doc.data(),

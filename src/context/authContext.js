@@ -17,12 +17,18 @@ const AuthContext = createContext();
 export const AuthContextProvider = ({ children }) => {
   const route = useRouter();
   const [user, setUser] = useState(null);
-  const [loading, setLoading] = useState(true);
 
-  const logOut = () => {
-    signOut(auth);
-    alert("Logout Successfully");
-    window.location.href = "/";
+  const logOut = async () => {
+    await signOut(auth)
+      .then(() => {
+        alert("Logout Successfully");
+      })
+      .catch((error) => {
+        console.log(error);
+      })
+      .finally(() => {
+        window.location.href = "/";
+      });
   };
 
   const googleSignIn = () => {
@@ -64,15 +70,19 @@ export const AuthContextProvider = ({ children }) => {
           const userDocRef = doc(db, "users", user.user.uid);
           const docSnap = await getDoc(userDocRef);
           if (docSnap.exists()) {
-            console.log("Document exists!");
+            // console.log("Document exists!");
             const data = docSnap?.data();
             const userFavList = data?.favoriteCloth;
+            if (userFavList === null) {
+              window.location.href = "/dashboard";
+              return;
+            }
             await setDoc(userDocRef, {
               ...data,
               favoriteCloth: [...userFavList],
             });
           } else {
-            console.log("Document doesn't exist!");
+            // console.log("Document doesn't exist!");
             await setDoc(userDocRef, {
               userName: user.user.email,
               isAdmin: false,
@@ -87,8 +97,7 @@ export const AuthContextProvider = ({ children }) => {
         alert(error);
         route.push("/login");
         return null;
-      })
-      .finally(() => (window.location.href = "/"));
+      });
   };
 
   const emailSignUp = (email, password) => {
@@ -107,14 +116,13 @@ export const AuthContextProvider = ({ children }) => {
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
       setUser(currentUser);
-      setLoading(false);
     });
 
     return () => unsubscribe();
   }, []);
   return (
     <AuthContext.Provider
-      value={{ user, loading, googleSignIn, logOut, emailSignIn, emailSignUp }}
+      value={{ user, googleSignIn, logOut, emailSignIn, emailSignUp }}
     >
       {children}
     </AuthContext.Provider>

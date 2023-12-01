@@ -6,18 +6,8 @@ import { UserAuth } from "@/context/authContext";
 import { Spinner } from "react-bootstrap";
 
 const CheckOutPage = () => {
-  const { user, loading } = UserAuth();
-  return (
-    <>
-      {loading ? (
-        <Spinner></Spinner>
-      ) : user ? (
-        <CheckOutWithUser />
-      ) : (
-        <CheckOutWithoutUser />
-      )}
-    </>
-  );
+  const { user } = UserAuth();
+  return <>{user ? <CheckOutWithUser /> : <CheckOutWithoutUser />}</>;
 };
 
 export default CheckOutPage;
