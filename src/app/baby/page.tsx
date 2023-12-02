@@ -1,9 +1,9 @@
 "use client";
 import BannerImagePages from "@/components/banner-image-pages";
-import BannerPlaceHolderCate from "@/components/banner-placeholder-cate";
-import CardItem from "@/components/cards";
-import Filter from "@/components/filter";
-import CardPlaceHolder from "@/components/placeholder";
+import BannerPlaceHolderCate from "@/components/place_holder/banner-placeholder-cate";
+import CardItem from "@/components/card/cards";
+import Filter from "@/components/search/filter";
+import CardPlaceHolder from "@/components/place_holder/placeholder";
 import { db } from "@/config/firebase";
 import { collection, getDocs, query, where } from "firebase/firestore";
 import { useEffect, useState } from "react";

@@ -1,6 +1,6 @@
 "use client";
-import DescriptionCloth from "@/components/detail-cloth";
-import ImageSlider from "@/components/imageslider";
+import DescriptionCloth from "@/components/detail_page_components/detail-cloth";
+import ImageSlider from "@/components/detail_page_components/imageslider";
 import { db } from "@/config/firebase";
 import { doc, onSnapshot } from "firebase/firestore";
 import { useEffect, useState } from "react";

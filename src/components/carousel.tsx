@@ -6,7 +6,7 @@ import "@/styles/app.scss";
 import { Banner } from "@/types/backend";
 import { Container } from "react-bootstrap";
 import CarouselImage from "./carousel-image";
-import PlaceHolder from "./placeholder";
+import PlaceHolder from "./place_holder/placeholder";
 
 interface IProps {
   banners: Banner[];

@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import { collection, doc, getDocs, orderBy, query } from "firebase/firestore";
 import { db } from "@/config/firebase";
 import { Button, Placeholder, Row } from "react-bootstrap";
-import { DescriptionPlaceHolder } from "./description-placeholder";
+import { DescriptionPlaceHolder } from "../place_holder/description-placeholder";
 import { useCart } from "@/context/cartContext";
 import { useRouter } from "next/navigation";
 import { UserAuth } from "@/context/authContext";

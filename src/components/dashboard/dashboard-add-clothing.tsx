@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Button, Form } from "react-bootstrap";
-import FormInput from "./form-input";
+import FormInput from "../form-input";
 
 const AddClothing = () => {
   const [nameCloth, setNameCloth] = useState("");

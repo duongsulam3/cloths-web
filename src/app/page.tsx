@@ -5,9 +5,9 @@ import "@/app/page.module.scss";
 import { useState, useEffect } from "react";
 import { getDocs, collection } from "firebase/firestore";
 import { db } from "../config/firebase";
-import CardItem from "@/components/cards";
+import CardItem from "@/components/card/cards";
 import { Col, Container, Row } from "react-bootstrap";
-import BannerPlaceHolder from "@/components/banner-placeholder";
+import BannerPlaceHolder from "@/components/place_holder/banner-placeholder";
 
 export default function Home() {
   // States

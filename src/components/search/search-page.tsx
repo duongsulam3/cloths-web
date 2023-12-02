@@ -1,7 +1,6 @@
 "use client";
-
-import CardItem from "@/components/cards";
-import Filter from "@/components/filter";
+import CardItem from "@/components/card/cards";
+import Filter from "@/components/search/filter";
 import { db } from "@/config/firebase";
 import { collection, getDocs, query, where } from "firebase/firestore";
 import { useSearchParams } from "next/navigation";
@@ -13,7 +12,6 @@ const SearchPageComponent = () => {
   const searchParams = useSearchParams();
 
   const queryCloth = searchParams.get("query");
-  //console.log(queryCloth);
   useEffect(() => {
     const getSearchClothList = async () => {
       try {

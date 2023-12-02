@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Button, Form } from "react-bootstrap";
-import FormInput from "./form-input";
+import FormInput from "../form-input";
 import { useCart } from "@/context/cartContext";
 import { collection, addDoc } from "firebase/firestore";
 import { db } from "@/config/firebase";

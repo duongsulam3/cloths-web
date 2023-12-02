@@ -1,9 +1,14 @@
 import { useState } from "react";
-import FormInput from "./form-input";
+import FormInput from "../../form-input";
 import { Button, Col, Form, Row } from "react-bootstrap";
-import { addDoc, collection } from "firebase/firestore";
+import {
+  addDoc,
+  collection,
+  doc,
+  documentId,
+  setDoc,
+} from "firebase/firestore";
 import { db } from "@/config/firebase";
-import AddClothing from "./dashboard-add-clothing";
 
 const AddBanner = () => {
   const [caption, setCaption] = useState("");
@@ -16,11 +21,18 @@ const AddBanner = () => {
         caption: caption,
         img: imgURL,
       };
-      await addDoc(bannerCollectionRef, bannerData).then(() => {
-        alert("Added");
-        setCaption(""), setImgURL("");
-        window.location.reload();
-      });
+      await addDoc(bannerCollectionRef, bannerData)
+        .then((docRef) => {
+          setDoc(docRef, {
+            ...bannerData,
+            idBanner: docRef.id,
+          });
+        })
+        .finally(() => {
+          alert("Added");
+          setCaption(""), setImgURL("");
+          window.location.reload();
+        });
     } catch (error) {
       console.error(error);
     }

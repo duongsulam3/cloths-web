@@ -1,6 +1,6 @@
 import { Suspense } from "react";
 
-import SearchPageComponent from "@/components/search-page";
+import SearchPageComponent from "@/components/search/search-page";
 
 const SearchPage = () => {
   const Loading = () => {

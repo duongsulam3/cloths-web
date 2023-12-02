@@ -1,7 +1,7 @@
 import { UserAuth } from "@/context/authContext";
 import { useCart } from "@/context/cartContext";
 import { useEffect, useState } from "react";
-import FormInput from "./form-input";
+import FormInput from "../form-input";
 import { Button, Form } from "react-bootstrap";
 import { db } from "@/config/firebase";
 import { addDoc, collection } from "firebase/firestore";

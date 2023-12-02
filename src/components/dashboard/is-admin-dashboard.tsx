@@ -1,7 +1,3 @@
-import { useState } from "react";
-import FormInput from "./form-input";
-import { Button, Form } from "react-bootstrap";
-import UploadImages from "./upload-images";
 import TabsDashboard from "./tabs-dashborad";
 
 const IsAdminDashboard = () => {

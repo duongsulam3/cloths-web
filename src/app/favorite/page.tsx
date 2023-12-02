@@ -1,7 +1,7 @@
 "use client";
-import CardInFav from "@/components/card-in-fav";
-import CardItem from "@/components/cards";
-import CardPlaceHolder from "@/components/placeholder";
+import CardInFav from "@/components/card/card-in-fav";
+import CardItem from "@/components/card/cards";
+import CardPlaceHolder from "@/components/place_holder/placeholder";
 import { db } from "@/config/firebase";
 import { useFav } from "@/context/favContext";
 import { doc, getDoc } from "firebase/firestore";

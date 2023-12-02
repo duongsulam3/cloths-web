@@ -1,7 +1,7 @@
 import { Key } from "readline";
 
 interface Banner {
-    id: number,
+    idBanner: string,
     img: string,
     caption: String,
 }

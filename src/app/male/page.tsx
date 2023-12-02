@@ -1,14 +1,14 @@
 "use client";
 import { Col, Container, Image, Row } from "react-bootstrap";
-import CardItem from "@/components/cards";
+import CardItem from "@/components/card/cards";
 
 import { useEffect, useState } from "react";
 import { collection, getDocs, orderBy, query, where } from "firebase/firestore";
 import { db } from "@/config/firebase";
-import Filter from "@/components/filter";
+import Filter from "@/components/search/filter";
 import BannerImagePages from "@/components/banner-image-pages";
-import BannerPlaceHolderCate from "@/components/banner-placeholder-cate";
-import CardPlaceHolder from "@/components/placeholder";
+import BannerPlaceHolderCate from "@/components/place_holder/banner-placeholder-cate";
+import CardPlaceHolder from "@/components/place_holder/placeholder";
 const MaleClothPage = () => {
   const [menClothList, setMenClothList] = useState([] as any);
   const [loading, setLoading] = useState(true);
