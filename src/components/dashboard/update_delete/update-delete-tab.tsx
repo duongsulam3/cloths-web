@@ -1,12 +1,11 @@
 import { db } from "@/config/firebase";
-import { collection, doc, getDocs, onSnapshot } from "firebase/firestore";
+import { collection, getDocs } from "firebase/firestore";
 import { useEffect, useState } from "react";
-import { Spinner, Table } from "react-bootstrap";
-import TableBannerData from "../table-banner-data";
+import { Spinner } from "react-bootstrap";
+import TableBannerData from "./table.banner.data";
 
 const UpdateAndDeleteTab = () => {
   const [bannerList, setBannerList] = useState([] as any);
-  // console.log(bannerList);
   const [loading, setLoading] = useState(true);
   useEffect(() => {
     const getBannerList = async () => {

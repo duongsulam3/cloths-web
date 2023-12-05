@@ -1,13 +1,17 @@
+import InputCheckbox from "@/components/checkbox-input";
 import { storage } from "@/config/firebase";
 import { ref, uploadBytesResumable, getDownloadURL } from "@firebase/storage";
 import { useState } from "react";
 import { Button, Form, Image, ProgressBar } from "react-bootstrap";
 
 const UploadClothImage = () => {
+  const [selectedCate, setSelectedCate] = useState<string>("");
   const [imgFile, setImgFile] = useState<File>();
   const [downloadURL, setDownloadURL] = useState("");
   const [isUploading, setIsUploading] = useState(false);
   const [progressUpload, setProgressUpload] = useState(0);
+
+  const path = `/images/clothing/`;
 
   const handleSelectedFile = (files: any) => {
     if (files[0].size < 1000000000) {
@@ -22,7 +26,7 @@ const UploadClothImage = () => {
     if (imgFile) {
       try {
         const name = imgFile.name;
-        const imgRef = ref(storage, `/images/clothing/${name}`);
+        const imgRef = ref(storage, path + name);
         const uploadTask = uploadBytesResumable(imgRef, imgFile);
         uploadTask.on(
           "state_changed",
@@ -54,6 +58,12 @@ const UploadClothImage = () => {
 
   return (
     <div className="upload-div">
+      <Form.Label>Select Cloth Path</Form.Label>
+      <InputCheckbox label="Men" value="men" />
+      <InputCheckbox label="Women" value="women" />
+      <InputCheckbox label="Kid" value="kid" />
+      <InputCheckbox label="Baby" value="baby" />
+
       <Form.Label>Upload Cloth Image</Form.Label>
       <Form.Control
         type="file"

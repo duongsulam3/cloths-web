@@ -17,7 +17,7 @@ const CarouselBanner = (props: IProps) => {
   // console.log(banners);
 
   return (
-    <Carousel fade variant="dark">
+    <Carousel fade>
       {banners?.map((banner, i) => {
         return (
           <Carousel.Item key={i}>

@@ -1,14 +1,12 @@
 import { useState } from "react";
 import Tab from "react-bootstrap/Tab";
 import Tabs from "react-bootstrap/Tabs";
-import FormInput from "../form-input";
-import { Button } from "react-bootstrap";
 import UploadBannerImage from "./upload/upload-images";
 import UploadClothImage from "./upload/upload-clothing-image";
 import AddBanner from "./add/dashboard-add-banner";
 import UpdateAndDeleteTab from "./update_delete/update-delete-tab";
 
-const TabsDashboard = () => {
+const BannerTab = () => {
   const [key, setKey] = useState("upload");
 
   return (
@@ -20,7 +18,6 @@ const TabsDashboard = () => {
     >
       <Tab eventKey="upload" title="Upload Image">
         <UploadBannerImage />
-        <UploadClothImage />
       </Tab>
       <Tab eventKey="add" title="Add Banner">
         <AddBanner />
@@ -32,4 +29,4 @@ const TabsDashboard = () => {
   );
 };
 
-export default TabsDashboard;
+export default BannerTab;

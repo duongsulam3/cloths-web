@@ -1,12 +1,14 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "bootstrap/dist/css/bootstrap.min.css";
+import "react-toastify/dist/ReactToastify.css";
 
 import Header from "../components/header/header";
 import Footer from "../components/footer";
 import { CartProvider } from "@/context/cartContext";
 import { AuthContextProvider } from "@/context/authContext";
 import { FavProvider } from "@/context/favContext";
+import { ToastContainer } from "react-toastify";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -29,6 +31,18 @@ export default function RootLayout({
               <Header />
               {children}
               <Footer />
+              <ToastContainer
+                position="top-center"
+                autoClose={5000}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover={false}
+                theme="dark"
+              />
             </FavProvider>
           </CartProvider>
         </AuthContextProvider>

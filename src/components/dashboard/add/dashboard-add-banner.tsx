@@ -1,14 +1,9 @@
 import { useState } from "react";
 import FormInput from "../../form-input";
-import { Button, Col, Form, Row } from "react-bootstrap";
-import {
-  addDoc,
-  collection,
-  doc,
-  documentId,
-  setDoc,
-} from "firebase/firestore";
+import { Button } from "react-bootstrap";
+import { addDoc, collection, setDoc } from "firebase/firestore";
 import { db } from "@/config/firebase";
+import { toast } from "react-toastify";
 
 const AddBanner = () => {
   const [caption, setCaption] = useState("");
@@ -22,16 +17,23 @@ const AddBanner = () => {
         img: imgURL,
       };
       await addDoc(bannerCollectionRef, bannerData)
-        .then((docRef) => {
-          setDoc(docRef, {
-            ...bannerData,
-            idBanner: docRef.id,
-          });
+        .then(async (docRef) => {
+          try {
+            await setDoc(docRef, {
+              ...bannerData,
+              idBanner: docRef.id,
+            });
+          } catch (error) {
+            console.error(error);
+          }
         })
-        .finally(() => {
-          alert("Added");
-          setCaption(""), setImgURL("");
-          window.location.reload();
+        .then(() => {
+          toast.success("Banner added successful"),
+            setCaption(""),
+            setImgURL(""),
+            setTimeout(() => {
+              window.location.reload();
+            }, 6000);
         });
     } catch (error) {
       console.error(error);

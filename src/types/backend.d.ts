@@ -3,7 +3,7 @@ import { Key } from "readline";
 interface Banner {
     idBanner: string,
     img: string,
-    caption: String,
+    caption: string,
 }
 
 interface Cloth {
