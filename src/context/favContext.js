@@ -41,7 +41,7 @@ export const FavProvider = ({ children }) => {
         }
       };
 
-      fetchUserData(user.uid);
+      fetchUserData(user.userID);
     }
   }, [user]);
 
@@ -56,7 +56,7 @@ export const FavProvider = ({ children }) => {
     } else {
       try {
         const updatedFav = [...fav, item];
-        const userCollectionRef = doc(db, "users", user.uid);
+        const userCollectionRef = doc(db, "users", user.userID);
         await updateDoc(userCollectionRef, {
           favoriteCloth: [...updatedFav],
         });
@@ -76,7 +76,7 @@ export const FavProvider = ({ children }) => {
 
     const updatedFav = fav.filter((favItem) => favItem.itemID !== id);
     // console.log(updatedFav);
-    const userCollectionRef = doc(db, "users", user.uid);
+    const userCollectionRef = doc(db, "users", user.userID);
     await updateDoc(userCollectionRef, {
       favoriteCloth: [...updatedFav],
     });

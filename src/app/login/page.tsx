@@ -1,7 +1,16 @@
 "use client";
 import { UserAuth } from "@/context/authContext";
 import { useEffect, useState } from "react";
-import { Button, Modal, Image, Form, Col, Row, Alert } from "react-bootstrap";
+import {
+  Button,
+  Modal,
+  Image,
+  Form,
+  Col,
+  Row,
+  Alert,
+  FloatingLabel,
+} from "react-bootstrap";
 import FormInput from "@/components/form-input";
 
 const LoginPage = () => {
@@ -19,6 +28,11 @@ const LoginPage = () => {
   const [password, setPassword] = useState("");
 
   //Sign Up
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [phone, setPhone] = useState("");
+  const [address, setAddress] = useState("");
+  const [city, setCity] = useState("");
   const [createEmail, setCreateEmail] = useState("");
   const [createPassword, setCreatePassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
@@ -60,7 +74,15 @@ const LoginPage = () => {
     if (createPassword === confirmPassword) {
       try {
         {
-          await emailSignUp(createEmail, createPassword);
+          await emailSignUp(
+            createEmail,
+            createPassword,
+            firstName,
+            lastName,
+            phone,
+            address,
+            city
+          );
         }
       } catch (error) {
         console.error(error);
@@ -80,16 +102,44 @@ const LoginPage = () => {
   }, [user]);
   return (
     <div className="login-page-div">
-      <Row>
-        <Col>
-          <h1>Login</h1>
-          <Form>
-            <FormInput title="Email" type="email" sharedValue={setEmail} />
-            <FormInput
-              title="Password"
-              type="password"
-              sharedValue={setPassword}
-            />
+      <Row style={{ marginTop: "5dvh" }}>
+        <Col
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            borderRight: "1px solid black",
+          }}
+        >
+          <h1>Welcome back</h1>
+          <Form style={{ width: "30vw" }}>
+            <FloatingLabel
+              controlId="floatingInput-email"
+              label="Email address"
+              className="mb-3"
+            >
+              <Form.Control
+                onChange={(e) => {
+                  setEmail(e.target.value);
+                }}
+                type="email"
+                placeholder="name@example.com"
+              />
+            </FloatingLabel>
+
+            <FloatingLabel
+              controlId="floatingInput-password"
+              label="Password"
+              className="mb-3"
+            >
+              <Form.Control
+                onChange={(e) => {
+                  setPassword(e.target.value);
+                }}
+                type="password"
+                placeholder="***********"
+              />
+            </FloatingLabel>
           </Form>
 
           <Button
@@ -126,7 +176,7 @@ const LoginPage = () => {
                   variant="outline-dark"
                   className="buttons-google-login"
                 >
-                  {`Hello ${user.displayName}`}
+                  {`Hello ${user.lastName}`}
                 </Button>
               ) : (
                 <Button
@@ -150,25 +200,120 @@ const LoginPage = () => {
             <Modal.Header closeButton>
               <Modal.Title>Register</Modal.Title>
             </Modal.Header>
-            <Modal.Body>
+            <Modal.Body style={{ height: "70dvh", overflowY: "auto" }}>
               <Form>
-                <FormInput
-                  type="email"
-                  title="Email"
-                  sharedValue={setCreateEmail}
-                />
+                <Row>
+                  <Col>
+                    <FloatingLabel
+                      controlId="floatingInput"
+                      label="First Name"
+                      className="mb-3"
+                    >
+                      <Form.Control
+                        onChange={(e) => {
+                          setFirstName(e.target.value);
+                        }}
+                        type="text"
+                        placeholder="Your first name"
+                      />
+                    </FloatingLabel>
+                  </Col>
+                  <Col>
+                    <FloatingLabel
+                      controlId="floatingInput"
+                      label="Last Name"
+                      className="mb-3"
+                    >
+                      <Form.Control
+                        onChange={(e) => {
+                          setLastName(e.target.value);
+                        }}
+                        type="text"
+                        placeholder="Your last name"
+                      />
+                    </FloatingLabel>
+                  </Col>
+                </Row>
+                <FloatingLabel
+                  controlId="floatingInput-phone"
+                  label="Phone"
+                  className="mb-3"
+                >
+                  <Form.Control
+                    onChange={(e) => {
+                      setPhone(e.target.value);
+                    }}
+                    type="number"
+                    placeholder="Phone number"
+                  />
+                </FloatingLabel>
+                <FloatingLabel
+                  controlId="floatingInput-address"
+                  label="Address"
+                  className="mb-3"
+                >
+                  <Form.Control
+                    onChange={(e) => {
+                      setAddress(e.target.value);
+                    }}
+                    type="text"
+                    placeholder="Your address"
+                  />
+                </FloatingLabel>
+                <FloatingLabel
+                  controlId="floatingInput-city"
+                  label="City"
+                  className="mb-3"
+                >
+                  <Form.Control
+                    onChange={(e) => {
+                      setCity(e.target.value);
+                    }}
+                    type="text"
+                    placeholder="Your city"
+                  />
+                </FloatingLabel>
+                <FloatingLabel
+                  controlId="floatingInput-create-email"
+                  label="Email address"
+                  className="mb-3"
+                >
+                  <Form.Control
+                    onChange={(e) => {
+                      setCreateEmail(e.target.value);
+                    }}
+                    type="email"
+                    placeholder="name@example.com"
+                  />
+                </FloatingLabel>
 
-                <FormInput
-                  type="password"
-                  title="Password"
-                  sharedValue={setCreatePassword}
-                />
+                <FloatingLabel
+                  controlId="floatingInput-create-password"
+                  label="Password"
+                  className="mb-3"
+                >
+                  <Form.Control
+                    onChange={(e) => {
+                      setCreatePassword(e.target.value);
+                    }}
+                    type="password"
+                    placeholder="***********"
+                  />
+                </FloatingLabel>
 
-                <FormInput
-                  type="password"
-                  title="Confirm Password"
-                  sharedValue={setConfirmPassword}
-                />
+                <FloatingLabel
+                  controlId="floatingInput-confirm-password"
+                  label="Confirm password"
+                  className="mb-3"
+                >
+                  <Form.Control
+                    onChange={(e) => {
+                      setConfirmPassword(e.target.value);
+                    }}
+                    type="password"
+                    placeholder="***********"
+                  />
+                </FloatingLabel>
               </Form>
             </Modal.Body>
             <Modal.Footer>

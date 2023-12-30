@@ -39,10 +39,11 @@ const FemaleClothPage = () => {
       ) : (
         <BannerImagePages src="https://firebasestorage.googleapis.com/v0/b/shopping-app-flutter-8f35d.appspot.com/o/images%2Fbanners%2Fthoi-trang-nu-thuong-hieu-routine-dep-cao-cap-chinh-hang.jpg?alt=media&token=6d872b3c-8d91-4d85-8841-64bd99e44ab2&_gl=1*adf1rn*_ga*MTA0MjcyMTA4MS4xNjc3NzU4MTMx*_ga_CW55HF8NVT*MTY5ODg0NjkxMy4xNzQuMS4xNjk4ODQ4NDM3LjYwLjAuMA.." />
       )}
-      <div style={{ marginTop: "1vh" }} className="text-center ">
-        <h2>Female Fashion</h2>
-      </div>
+
       <Container fluid>
+        <div className="caption-cate-page-container">
+          <h2>Female Fashion</h2>
+        </div>
         <Row className="g-2">
           <Col>
             {loading ? (

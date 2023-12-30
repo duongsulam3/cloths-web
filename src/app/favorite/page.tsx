@@ -37,12 +37,24 @@ const FavoritePage = () => {
 
   return (
     <div className="div-90vh-10pad">
-      <h1>Favorite Item List</h1>
+      <h1>Your Favorite List</h1>
       <Container fluid>
         <Row className="g-2">
           <Col>
             {loading ? (
               <CardPlaceHolder />
+            ) : favClothList.length == 0 ? (
+              <div
+                style={{
+                  minHeight: "90dvh",
+                  display: "flex",
+                  flexWrap: "wrap",
+                  alignContent: "center",
+                  justifyContent: "center",
+                }}
+              >
+                <h4>Your list is empty</h4>
+              </div>
             ) : (
               <CardInFav cloths={favClothList} />
             )}

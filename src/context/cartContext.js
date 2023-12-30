@@ -31,7 +31,6 @@ export const CartProvider = ({ children }) => {
 
   useEffect(() => {
     localStorage.setItem("carts", JSON.stringify(carts));
-
     const updateCartCounter = () => {
       const counter = carts.reduce(
         (counter, item) => counter + item.quantityItem,
@@ -52,7 +51,7 @@ export const CartProvider = ({ children }) => {
     if (carts.length > -1) {
       updateTotalCart();
     }
-  }, [carts, user]);
+  }, [carts]);
 
   //console.log(carts);
 

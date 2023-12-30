@@ -1,7 +1,15 @@
 "use client";
 import React from "react";
 import { useCart } from "@/context/cartContext";
-import { Button, Col, Container, Image } from "react-bootstrap";
+import {
+  Button,
+  Col,
+  Container,
+  Image,
+  Table,
+  Card,
+  Row,
+} from "react-bootstrap";
 import { UserAuth } from "@/context/authContext";
 import { useRouter } from "next/navigation";
 
@@ -28,43 +36,93 @@ const Cart = () => {
           <p>Please add cloths to your cart</p>
         </div>
       ) : (
-        <Container>
+        <Container style={{ paddingTop: "10dvh" }}>
           <h2>Shopping Cart</h2>
-          {carts.map((item: any, index: number) => {
-            return (
-              <div key={index} className="div-80vw-150h">
-                <Col xs={10} style={{ display: "flex" }}>
-                  <Col xs={2}>
-                    <Image
-                      className="cart-item-img"
-                      alt="thumbnail"
-                      src={item.imgItem[0]}
-                    />
-                  </Col>
-                  <Col xs={4} className="col-center-text">
-                    <p>{item.nameItem}</p>
-                    <p>Size: {item.sizeItem}</p>
-                    <p>Price: {item.priceItem}</p>
-                  </Col>
-                  <Col xs={4} className="col-center-text">
-                    <span>Quantity: {item.quantityItem}</span>
-                  </Col>
-
-                  <Col className="col-center-text">
-                    <span>Total: {item.totalPriceItem}</span>
-                  </Col>
-                </Col>
-                <Col className="col-pad-right-10">
-                  <Button onClick={() => handleRemoveBtn(item.idItem)}>
-                    Remove From Cart
-                  </Button>
-                </Col>
-              </div>
-            );
-          })}
-          <div className="total-price-container">
-            <h2>Total Price: {totalCart}</h2>
-            <Button onClick={handleCheckOut}>Check out</Button>
+          <div style={{ display: "flex" }}>
+            <div style={{ width: "60dvw" }}>
+              <Table responsive>
+                <thead>
+                  <tr>
+                    <th>Item</th>
+                    <th></th>
+                    <th>Quantity</th>
+                    <th>Price</th>
+                    <th>Total</th>
+                    <th>Remove</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {carts.map((item: any, i: number) => {
+                    return (
+                      <tr style={{ verticalAlign: "middle" }} key={i}>
+                        <td>
+                          <Image
+                            style={{
+                              height: "96px",
+                              width: "96px",
+                              borderRadius: "10px",
+                            }}
+                            alt="thumbnail"
+                            src={item.imgItem[0]}
+                          />
+                        </td>
+                        <td>
+                          <p>{item.nameItem}</p>
+                          <p>Size: {item.sizeItem}</p>
+                        </td>
+                        <td style={{ textAlign: "center" }}>
+                          <p>{item.quantityItem}</p>
+                        </td>
+                        <td style={{ textAlign: "center" }}>
+                          <p>{item.priceItem}</p>
+                        </td>
+                        <td style={{ textAlign: "center" }}>
+                          <p>{item.totalPriceItem}</p>
+                        </td>
+                        <td style={{ textAlign: "center" }}>
+                          <Button
+                            style={{
+                              display: "flex",
+                              backgroundColor: "transparent",
+                              color: "black",
+                              borderColor: "transparent",
+                            }}
+                            onClick={() => handleRemoveBtn(item.idItem)}
+                          >
+                            <p className="material-icons">delete</p>
+                          </Button>
+                        </td>
+                      </tr>
+                    );
+                  })}
+                </tbody>
+              </Table>
+            </div>
+            <Card
+              style={{
+                width: "20dvw",
+                marginLeft: "5dvw",
+                height: "fit-content",
+              }}
+            >
+              <Card.Header as="h4">Summary</Card.Header>
+              <Card.Body>
+                <Card.Text
+                  style={{ display: "flex", justifyContent: "space-between" }}
+                >
+                  <span>Subtotal</span>
+                  <span>{totalCart} VND</span>
+                </Card.Text>
+              </Card.Body>
+              <Card.Footer>
+                <Button
+                  style={{ width: "-webkit-fill-available" }}
+                  onClick={handleCheckOut}
+                >
+                  Go to checkout
+                </Button>
+              </Card.Footer>
+            </Card>
           </div>
         </Container>
       )}

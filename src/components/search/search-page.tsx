@@ -35,15 +35,10 @@ const SearchPageComponent = () => {
 
   return (
     <div className="div-90vh-10pad">
-      <h5 style={{ position: "absolute", right: "10px" }}>
-        Result for: {queryCloth}
-      </h5>
       <Container fluid style={{ paddingTop: "30px" }}>
+        <h5 style={{ textAlign: "right" }}>Result for: {queryCloth}</h5>
         <Row className="g-2">
-          <Col xs={2}>
-            <Filter />
-          </Col>
-          <Col xs={10}>
+          <Col>
             <CardItem cloths={searchClothList} />
           </Col>
         </Row>
