@@ -42,10 +42,15 @@ const LoginPage = () => {
   };
 
   const handleSignInEmailAndPassword = async () => {
-    try {
-      await emailSignIn(email, password);
-    } catch (error) {
-      console.error(error);
+    if (email && password != "") {
+      try {
+        await emailSignIn(email, password);
+      } catch (error) {
+        console.error(error);
+      }
+    } else {
+      alert("Missing input, please try again!");
+      return;
     }
   };
 
@@ -71,24 +76,39 @@ const LoginPage = () => {
   };
 
   const handleCreateAccount = async () => {
-    if (createPassword === confirmPassword) {
-      try {
-        {
-          await emailSignUp(
-            createEmail,
-            createPassword,
-            firstName,
-            lastName,
-            phone,
-            address,
-            city
-          );
+    if (
+      firstName &&
+      lastName &&
+      phone &&
+      address &&
+      city &&
+      createEmail &&
+      createPassword &&
+      confirmPassword != ""
+    ) {
+      if (createPassword === confirmPassword) {
+        try {
+          {
+            await emailSignUp(
+              createEmail,
+              createPassword,
+              firstName,
+              lastName,
+              phone,
+              address,
+              city
+            );
+          }
+        } catch (error) {
+          console.error(error);
         }
-      } catch (error) {
-        console.error(error);
+      } else {
+        alert("Password doesn't match");
+        return;
       }
     } else {
-      alert("Password doesn't match");
+      alert("Missing input, please try again!");
+      return;
     }
   };
 

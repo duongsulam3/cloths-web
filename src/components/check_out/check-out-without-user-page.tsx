@@ -14,6 +14,7 @@ import { useCart } from "@/context/cartContext";
 import { collection, addDoc, updateDoc } from "firebase/firestore";
 import { db } from "@/config/firebase";
 import { useRouter } from "next/navigation";
+import { toast } from "react-toastify";
 
 const CheckOutWithoutUser = () => {
   const { carts, totalCart } = useCart();
@@ -36,31 +37,55 @@ const CheckOutWithoutUser = () => {
     localStorage.setItem("city", city);
     localStorage.setItem("email", email);
     localStorage.setItem("phone", phone);
-    try {
-      const billRef = collection(db, "order");
-      const userData = {
-        orderStatus: "pending",
-        firstName: firstName,
-        lastName: lastName,
-        address: address,
-        city: city,
-        email: email,
-        phoneNumber: phone,
-        cartItems: carts,
-        billPrice: totalCart,
-      };
-      await addDoc(billRef, userData)
-        .then(async (docRef) => {
-          await updateDoc(docRef, {
-            orderID: docRef.id,
+    if (firstName && lastName && address && city && email && phone != "") {
+      try {
+        const billRef = collection(db, "order");
+        const userData = {
+          orderStatus: "pending",
+          firstName: firstName,
+          lastName: lastName,
+          address: address,
+          city: city,
+          email: email,
+          phoneNumber: phone,
+          cartItems: carts,
+          billPrice: totalCart,
+        };
+        await addDoc(billRef, userData)
+          .then(async (docRef) => {
+            await updateDoc(docRef, {
+              orderID: docRef.id,
+            });
+            const clientRef = collection(db, "client");
+            const clientData = {
+              firstName: firstName,
+              lastName: lastName,
+              address: address,
+              city: city,
+              email: email,
+              phoneNumber: phone,
+              clientID: "",
+            };
+            await addDoc(clientRef, clientData).then(async (docRef) => {
+              await updateDoc(docRef, {
+                clientID: docRef.id,
+              });
+            });
+            toast.success("Order successfully", {
+              onClose: () => {
+                window.location.href = "/success-order";
+              },
+              closeOnClick: true,
+            });
+          })
+          .catch((error) => {
+            console.log(error);
           });
-          window.location.href = "/success-order";
-        })
-        .catch((error) => {
-          console.log(error);
-        });
-    } catch (error) {
-      console.error(error);
+      } catch (error) {
+        console.error(error);
+      }
+    } else {
+      return;
     }
   };
 
@@ -145,11 +170,10 @@ const CheckOutWithoutUser = () => {
                 />
                 <Form.Check
                   type="switch"
-                  checked
                   value={1}
                   onChange={(e) => setComeAndTakeChecked(e.target.checked)}
                   id="switch-come-and-take"
-                  label="Come and take at store"
+                  label="Take order at store"
                 />
               </div>
             </div>
