@@ -10,7 +10,7 @@ const ListSizes = ({
   sizes,
   onSelectSize,
 }: IPros & { onSelectSize: (selectedSize: string) => void }) => {
-  const defaultSize = sizes.find((size) => size.idSize === 1);
+  const defaultSize = sizes.find((size) => size.idSize == 1);
   const [selectedSize, setSelectedSize] = useState<SizesCloth | null>(
     defaultSize || null
   );
