@@ -1,5 +1,4 @@
 "use client";
-import { useHydrate } from "react-dom/client";
 import { Button, Table, Image, Card, Row, Col } from "react-bootstrap";
 import { useCart } from "@/context/cartContext";
 import { useEffect, useState } from "react";
