@@ -24,6 +24,7 @@ import { useEffect, useState } from "react";
 import { useCart } from "@/context/cartContext";
 import { useRouter } from "next/navigation";
 import { toast } from "react-toastify";
+import { User } from "@/types/backend";
 
 import UpdateProfileModal from "./components/update-profile-modal";
 import UpdatePasswordModal from "./components/update-password";
@@ -35,7 +36,7 @@ const Header = () => {
 
   //
   const [loading, setLoading] = useState(true);
-  const [userData, setUserData] = useState(null);
+  const [userData, setUserData] = useState<User | null>(null);
   const [showModalUpdateProfile, setShowModalUpdateProfile] = useState(false);
   const [showModalUpdatePassword, setShowModalUpdatePassword] = useState(false);
 

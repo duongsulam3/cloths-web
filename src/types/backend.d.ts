@@ -32,6 +32,7 @@ interface User {
   isAdmin: boolean;
   phoneNumber: number;
   email: string;
+  password: string;
   city: string;
   address: string;
   favoriteCloth: Array[];

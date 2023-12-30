@@ -19,7 +19,8 @@ const CheckOutWithoutUser = () => {
   const { carts, totalCart } = useCart();
   const [cartList, setCartList] = useState([] as any);
   const [totalPriceCart, setTotalPriceCart] = useState<number>();
-  const [formChecked, setFormChecked] = useState<number>(1);
+  const [comeAndTakeChecked, setComeAndTakeChecked] = useState<boolean>(true);
+  const [codChecked, setCODChecked] = useState<boolean>(false);
 
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
@@ -135,20 +136,20 @@ const CheckOutWithoutUser = () => {
               <h2>Shipping</h2>
               <div>
                 <Form.Check
-                  style={{marginTop: '2dvh', marginBottom:"2dvh"}} // prettier-ignore
+                  style={{ marginTop: "2dvh", marginBottom: "2dvh" }}
                   type="switch"
                   value={0}
-                  onChange={(e) => setFormChecked(e.target.checked)}
+                  onChange={(e) => setCODChecked(e.target.checked)}
                   id="switch-C-O-D"
-                  label="C.O.D"
+                  label="Cash On Delivery"
                 />
-                <Form.Check // prettier-ignore
+                <Form.Check
                   type="switch"
                   checked
                   value={1}
-                  onChange={(e) => setFormChecked(e.target.checked)}
-                  id="custom-switch"
-                  label="switch-come-and-take"
+                  onChange={(e) => setComeAndTakeChecked(e.target.checked)}
+                  id="switch-come-and-take"
+                  label="Come and take at store"
                 />
               </div>
             </div>

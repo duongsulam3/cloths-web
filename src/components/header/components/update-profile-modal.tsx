@@ -33,7 +33,7 @@ const UpdateProfileModal = (props: IProps) => {
   const [email, setEmail] = useState<string>("");
   const [address, setAddress] = useState<string>("");
   const [city, setCity] = useState<string>("");
-  const [phone, setPhone] = useState<number>();
+  const [phone, setPhone] = useState<string>("");
 
   useEffect(() => {
     if (user && user.userID) {
@@ -43,7 +43,7 @@ const UpdateProfileModal = (props: IProps) => {
       setEmail(user.email);
       setAddress(user.address);
       setCity(user.city);
-      setPhone(user.phoneNumber);
+      setPhone(user.phoneNumber.toString());
     }
   }, [user]);
 
@@ -54,7 +54,7 @@ const UpdateProfileModal = (props: IProps) => {
     setEmail("");
     setAddress("");
     setCity("");
-    setPhone();
+    setPhone("");
     setUser(null);
     setShowModalUpdateProfile(false);
   };
