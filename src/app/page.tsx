@@ -6,7 +6,6 @@ import { useState, useEffect } from "react";
 import { getDocs, collection, where, query, orderBy } from "firebase/firestore";
 import { db } from "../config/firebase";
 import CardItem from "@/components/card/cards";
-import ListCardItem from "@/components/card/card";
 import { Col, Container, Row, ListGroup } from "react-bootstrap";
 import BannerPlaceHolder from "@/components/place_holder/banner-placeholder";
 
@@ -89,7 +88,7 @@ export default function Home() {
         </div>
         <Row className="g-2">
           <Col>
-            <ListCardItem cloths={saleList} />
+            <CardItem cloths={saleList} />
           </Col>
         </Row>
       </Container>
@@ -103,7 +102,7 @@ export default function Home() {
         </div>
         <Row className="g-2">
           <Col>
-            <ListCardItem cloths={mostBuyList} />
+            <CardItem cloths={mostBuyList} />
           </Col>
         </Row>
       </Container>

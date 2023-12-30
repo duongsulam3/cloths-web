@@ -29,12 +29,24 @@ const CardItem = (props: IPros) => {
                   <Card.Text className="block-ellipsis">
                     {cloth.description}
                   </Card.Text>
-                  <Card.Title className="old-price">
-                    {cloth.oldPrice}
-                  </Card.Title>
-                  <Card.Title className="price">
-                    {cloth.price + " " + cloth.currency}
-                  </Card.Title>
+                  {cloth.sale == "0%" ? (
+                    <>
+                      <Card.Title
+                        style={{ fontSize: "25px", marginTop: "5dvh" }}
+                      >
+                        {cloth.price + " " + cloth.currency}
+                      </Card.Title>
+                    </>
+                  ) : (
+                    <>
+                      <Card.Title className="old-price">
+                        {cloth.oldPrice}
+                      </Card.Title>
+                      <Card.Title className="price">
+                        {cloth.price + " " + cloth.currency}
+                      </Card.Title>
+                    </>
+                  )}
                 </Card.Body>
               </Card>
             </Link>

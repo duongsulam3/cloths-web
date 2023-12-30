@@ -12,7 +12,7 @@ import {
 } from "firebase/firestore";
 import { useEffect, useState } from "react";
 import { Col, Container, Row, Spinner } from "react-bootstrap";
-import ListCardItem from "@/components/card/card";
+import CardItem from "@/components/card/cards";
 
 const DetailCloth = ({ params }: { params: { id: string } }) => {
   const [loading, setLoading] = useState(true);
@@ -89,7 +89,7 @@ const DetailCloth = ({ params }: { params: { id: string } }) => {
       </div>
       <Row className="g-2">
         <Col>
-          <ListCardItem cloths={saleList} />
+          <CardItem cloths={saleList} />
         </Col>
       </Row>
     </Container>
