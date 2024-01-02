@@ -74,9 +74,10 @@ export const AuthContextProvider = ({ children }) => {
             userID: user.user.uid,
             firstName: "null",
             lastName: "null",
-            phoneNumber: user.user.phoneNumber ? "null" : user.user.phoneNumber,
+            phoneNumber: "null",
             address: "null",
             city: "null",
+            password: null,
             isAdmin: false,
             favoriteCloth: [],
           });

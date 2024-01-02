@@ -85,6 +85,7 @@ const CheckOutWithoutUser = () => {
         console.error(error);
       }
     } else {
+      alert("Please fill out fields");
       return;
     }
   };
@@ -103,7 +104,12 @@ const CheckOutWithoutUser = () => {
         <Row>
           <Col className="border-left-black">
             <Form
-              style={{ display: "flex", width: "50dvw", marginTop: "5dvh" }}
+              style={{
+                display: "flex",
+                marginTop: "5dvh",
+                width: "100%",
+                alignItems: "start",
+              }}
             >
               <Row>
                 <Col>
@@ -115,13 +121,17 @@ const CheckOutWithoutUser = () => {
                     placeholder="First Name"
                   />
                   <Form.Control
-                    onChange={(e) => {
-                      setAddress(e.target.value);
+                    style={{
+                      marginTop: "2dvh",
+                      marginBottom: "2dvh",
                     }}
-                    style={{ marginTop: "2dvh", marginBottom: "2dvh" }}
+                    onChange={(e) => {
+                      setLastName(e.target.value);
+                    }}
                     type="text"
-                    placeholder="Address"
+                    placeholder="Last Name"
                   />
+
                   <Form.Control
                     onChange={(e) => {
                       setPhone(e.target.value);
@@ -129,23 +139,25 @@ const CheckOutWithoutUser = () => {
                     type="number"
                     placeholder="Phone"
                   />
-                  <Button onClick={handleOrder}>Order Now</Button>
                 </Col>
                 <Col>
                   <Form.Control
                     onChange={(e) => {
-                      setLastName(e.target.value);
+                      setEmail(e.target.value);
                     }}
                     type="text"
-                    placeholder="Last Name"
+                    placeholder="Email"
                   />
                   <Form.Control
                     onChange={(e) => {
-                      setEmail(e.target.value);
+                      setAddress(e.target.value);
                     }}
-                    style={{ marginTop: "2dvh", marginBottom: "2dvh" }}
+                    style={{
+                      marginTop: "2dvh",
+                      marginBottom: "2dvh",
+                    }}
                     type="text"
-                    placeholder="Email"
+                    placeholder="Address"
                   />
                   <Form.Control
                     onChange={(e) => {
@@ -156,6 +168,7 @@ const CheckOutWithoutUser = () => {
                   />
                 </Col>
               </Row>
+              <Button onClick={handleOrder}>Order Now</Button>
             </Form>
             <div style={{ marginTop: "5dvh" }}>
               <h2>Shipping</h2>

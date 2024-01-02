@@ -105,7 +105,7 @@ const SuccessOrderPage = () => {
                 })}
               </tbody>
             </Table>
-            <div>Your Total Receipt: {totalCart}</div>
+            <div>Total Receipt: {totalCart} VND</div>
           </div>
         </div>
       </div>

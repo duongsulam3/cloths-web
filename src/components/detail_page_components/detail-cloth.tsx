@@ -88,10 +88,20 @@ const DescriptionCloth = (props: IPros) => {
   return (
     <>
       <h1>{cloth?.name}</h1>
-      <h5 className="old-price">{cloth?.oldPrice}</h5>
-      <h3 className="sale-price-detail-page">
-        {cloth?.price + " " + cloth?.currency}
-      </h3>
+      {cloth?.sale == "0%" ? (
+        <>
+          <h2 style={{ marginTop: "3dvh" }}>
+            {cloth?.price + " " + cloth?.currency}
+          </h2>
+        </>
+      ) : (
+        <>
+          <h5 className="old-price">{cloth?.oldPrice}</h5>
+          <h3 className="sale-price-detail-page">
+            {cloth?.price + " " + cloth?.currency}
+          </h3>
+        </>
+      )}
       <ListSizes
         sizes={listClothSizes}
         onSelectSize={(selectedSize) => setSelectedSize(selectedSize)}

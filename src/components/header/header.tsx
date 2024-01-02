@@ -84,7 +84,7 @@ const Header = () => {
       <Navbar
         variant="light"
         style={{
-          height: "10vh",
+          height: "70px",
         }}
         sticky="top"
         expand="lg"
@@ -165,14 +165,21 @@ const Header = () => {
                       >
                         Update profile
                       </Dropdown.Item>
-                      <Dropdown.Item
-                        as="button"
-                        onClick={() => {
-                          setUserData(user), setShowModalUpdatePassword(true);
-                        }}
-                      >
-                        Change password
-                      </Dropdown.Item>
+                      {user.password == null ? (
+                        <></>
+                      ) : (
+                        <>
+                          <Dropdown.Item
+                            as="button"
+                            onClick={() => {
+                              setUserData(user),
+                                setShowModalUpdatePassword(true);
+                            }}
+                          >
+                            Change password
+                          </Dropdown.Item>
+                        </>
+                      )}
                       <Dropdown.Item as="button" onClick={handleSignOut}>
                         Logout
                       </Dropdown.Item>

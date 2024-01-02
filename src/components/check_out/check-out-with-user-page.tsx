@@ -23,6 +23,8 @@ const CheckOutWithUser = () => {
 
   const [cartList, setCartList] = useState([] as any);
   const [totalPriceCart, setTotalPriceCart] = useState<number>();
+  const [comeAndTakeChecked, setComeAndTakeChecked] = useState<boolean>(true);
+  const [codChecked, setCODChecked] = useState<boolean>(false);
 
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
@@ -80,7 +82,7 @@ const CheckOutWithUser = () => {
       <Row style={{ marginTop: "5dvh" }}>
         <Col className="border-left-black">
           <h4>Information: {user.email}</h4>
-          <Form style={{ width: "30dvw" }}>
+          <Form style={{ width: "30dvw", alignItems: "start" }}>
             <Form.Label>First name</Form.Label>
             <Form.Control
               type="text"
@@ -88,28 +90,28 @@ const CheckOutWithUser = () => {
               defaultValue={firstName}
               onChange={(e) => setFirstName(e.target.value)}
             />
-            <Form.Label>Last name</Form.Label>
+            <Form.Label style={{ marginTop: "20px" }}>Last name</Form.Label>
             <Form.Control
               type="text"
               id={`input-lastName`}
               defaultValue={lastName}
               onChange={(e) => setLastName(e.target.value)}
             />
-            <Form.Label>Address</Form.Label>
+            <Form.Label style={{ marginTop: "20px" }}>Address</Form.Label>
             <Form.Control
               type="text"
               id={`input-address`}
               defaultValue={address}
               onChange={(e) => setAddress(e.target.value)}
             />
-            <Form.Label>Phone</Form.Label>
+            <Form.Label style={{ marginTop: "20px" }}>Phone</Form.Label>
             <Form.Control
               type="number"
               id={`input-phone`}
               defaultValue={phone}
               onChange={(e) => setPhone(e.target.value)}
             />
-            <Form.Label>City</Form.Label>
+            <Form.Label style={{ marginTop: "20px" }}>City</Form.Label>
             <Form.Control
               type="text"
               id={`input-city`}
@@ -120,6 +122,26 @@ const CheckOutWithUser = () => {
           <Button style={{ width: "30dvw" }} onClick={handleOrder}>
             Order Now
           </Button>
+          <div style={{ marginTop: "5dvh" }}>
+            <h2>Shipping</h2>
+            <div>
+              <Form.Check
+                style={{ marginTop: "2dvh", marginBottom: "2dvh" }}
+                type="switch"
+                value={0}
+                onChange={(e) => setCODChecked(e.target.checked)}
+                id="switch-C-O-D"
+                label="Cash On Delivery"
+              />
+              <Form.Check
+                type="switch"
+                value={1}
+                onChange={(e) => setComeAndTakeChecked(e.target.checked)}
+                id="switch-come-and-take"
+                label="Take order at store"
+              />
+            </div>
+          </div>
         </Col>
         <Col>
           <Card

@@ -37,8 +37,8 @@ const FavoritePage = () => {
 
   return (
     <div className="div-90vh-10pad">
-      <h1>Your Favorite List</h1>
       <Container fluid>
+        <h2>Favorite List</h2>
         <Row className="g-2">
           <Col>
             {loading ? (
