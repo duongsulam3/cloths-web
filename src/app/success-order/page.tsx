@@ -6,13 +6,14 @@ import { UserAuth } from "@/context/authContext";
 
 const SuccessOrderPage = () => {
   const { user } = UserAuth();
-  const { carts, cartCounter, totalCart } = useCart();
-  const [firstName, setFirstName] = useState<string | null>(null);
-  const [lastName, setLastName] = useState<string | null>(null);
-  const [address, setAddress] = useState<string | null>(null);
-  const [city, setCity] = useState<string | null>(null);
-  const [email, setEmail] = useState<string | null>(null);
-  const [phone, setPhone] = useState<string | null>(null);
+  const { carts } = useCart();
+  const [firstName, setFirstName] = useState<string | "">("");
+  const [lastName, setLastName] = useState<string | "">("");
+  const [address, setAddress] = useState<string | "">("");
+  const [city, setCity] = useState<string | "">("");
+  const [email, setEmail] = useState<string | "">("");
+  const [phone, setPhone] = useState<string | "">("");
+  const [totalReceipt, setTotalReceipt] = useState<number | 0>(0);
   const [cartList, setCartList] = useState([] as any);
 
   const handleBtn = () => {
@@ -21,6 +22,7 @@ const SuccessOrderPage = () => {
   };
 
   useEffect(() => {
+    setTotalReceipt(localStorage.getItem("billPrice"));
     if (user) {
       setFirstName(user.firstName);
       setLastName(user.lastName);
@@ -105,7 +107,7 @@ const SuccessOrderPage = () => {
                 })}
               </tbody>
             </Table>
-            <div>Total Receipt: {totalCart} VND</div>
+            <div>Total Receipt: {totalReceipt} VND</div>
           </div>
         </div>
       </div>

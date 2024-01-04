@@ -19,9 +19,11 @@ import { toast } from "react-toastify";
 const CheckOutWithoutUser = () => {
   const { carts, totalCart } = useCart();
   const [cartList, setCartList] = useState([] as any);
-  const [totalPriceCart, setTotalPriceCart] = useState<number>();
-  const [comeAndTakeChecked, setComeAndTakeChecked] = useState<boolean>(true);
-  const [codChecked, setCODChecked] = useState<boolean>(false);
+  const [subTotalPriceCart, setSubTotalPriceCart] = useState<number>(0);
+  const [cashOnDelivery, setCashOnDelivery] = useState<boolean>(false);
+  const [comeAndTake, setComeAndTake] = useState<boolean>(false);
+  const [shippingFee, setShippingFee] = useState<number>(0);
+  const [totalPrice, setTotalPrice] = useState<number>(0);
 
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
@@ -37,65 +39,145 @@ const CheckOutWithoutUser = () => {
     localStorage.setItem("city", city);
     localStorage.setItem("email", email);
     localStorage.setItem("phone", phone);
+    localStorage.setItem("billPrice", totalPrice);
     if (firstName && lastName && address && city && email && phone != "") {
-      try {
-        const billRef = collection(db, "order");
-        const userData = {
-          orderStatus: "pending",
-          firstName: firstName,
-          lastName: lastName,
-          address: address,
-          city: city,
-          email: email,
-          phoneNumber: phone,
-          cartItems: carts,
-          billPrice: totalCart,
-        };
-        await addDoc(billRef, userData)
-          .then(async (docRef) => {
-            await updateDoc(docRef, {
-              orderID: docRef.id,
-            });
-            const clientRef = collection(db, "client");
-            const clientData = {
+      if (comeAndTake === false) {
+        if (cashOnDelivery === false) {
+          toast.error("You haven't select shipping method!");
+          return;
+        } else {
+          try {
+            const billRef = collection(db, "order");
+            const userData = {
+              orderStatus: "pending",
               firstName: firstName,
               lastName: lastName,
               address: address,
               city: city,
               email: email,
               phoneNumber: phone,
-              clientID: "",
+              cartItems: carts,
+              billPrice: totalPrice,
             };
-            await addDoc(clientRef, clientData).then(async (docRef) => {
-              await updateDoc(docRef, {
-                clientID: docRef.id,
+            await addDoc(billRef, userData)
+              .then(async (docRef) => {
+                await updateDoc(docRef, {
+                  orderID: docRef.id,
+                });
+                const clientRef = collection(db, "client");
+                const clientData = {
+                  firstName: firstName,
+                  lastName: lastName,
+                  address: address,
+                  city: city,
+                  email: email,
+                  phoneNumber: phone,
+                  clientID: "",
+                };
+                await addDoc(clientRef, clientData).then(async (docRef) => {
+                  await updateDoc(docRef, {
+                    clientID: docRef.id,
+                  });
+                });
+                toast.success("Order successfully", {
+                  onClose: () => {
+                    window.location.href = "/success-order";
+                  },
+                  closeOnClick: true,
+                });
+              })
+              .catch((error) => {
+                console.log(error);
               });
+          } catch (error) {
+            console.error(error);
+          }
+        }
+      } else {
+        try {
+          const billRef = collection(db, "order");
+          const userData = {
+            orderStatus: "pending",
+            firstName: firstName,
+            lastName: lastName,
+            address: address,
+            city: city,
+            email: email,
+            phoneNumber: phone,
+            cartItems: carts,
+            billPrice: totalPrice,
+          };
+          await addDoc(billRef, userData)
+            .then(async (docRef) => {
+              await updateDoc(docRef, {
+                orderID: docRef.id,
+              });
+              const clientRef = collection(db, "client");
+              const clientData = {
+                firstName: firstName,
+                lastName: lastName,
+                address: address,
+                city: city,
+                email: email,
+                phoneNumber: phone,
+                clientID: "",
+              };
+              await addDoc(clientRef, clientData).then(async (docRef) => {
+                await updateDoc(docRef, {
+                  clientID: docRef.id,
+                });
+              });
+              toast.success("Order successfully", {
+                onClose: () => {
+                  window.location.href = "/success-order";
+                },
+                closeOnClick: true,
+              });
+            })
+            .catch((error) => {
+              console.log(error);
             });
-            toast.success("Order successfully", {
-              onClose: () => {
-                window.location.href = "/success-order";
-              },
-              closeOnClick: true,
-            });
-          })
-          .catch((error) => {
-            console.log(error);
-          });
-      } catch (error) {
-        console.error(error);
+        } catch (error) {
+          console.error(error);
+        }
       }
     } else {
-      alert("Please fill out fields");
+      toast.error("Please fill out empty fields!");
       return;
+    }
+  };
+
+  const handleCheckboxCOD = (e) => {
+    if (e.target.checked) {
+      setCashOnDelivery(e.target.checked);
+      setShippingFee(15000);
+      setComeAndTake(false);
+    } else {
+      setCashOnDelivery(false);
+      setShippingFee(0);
+      setComeAndTake(true);
+    }
+  };
+
+  const handleCheckboxCAT = (e) => {
+    if (e.target.checked) {
+      setComeAndTake(e.target.checked);
+      setCashOnDelivery(false);
+      setShippingFee(0);
+    } else {
+      setComeAndTake(false);
+      setCashOnDelivery(true);
+      setShippingFee(15000);
     }
   };
 
   useEffect(() => {
     if (carts && totalCart) {
       setCartList(carts);
-      setTotalPriceCart(totalCart);
+      setSubTotalPriceCart(totalCart);
+      setTotalPrice(totalCart + shippingFee);
     }
-  }, [carts, totalCart]);
+  }, [carts, totalCart, shippingFee]);
 
   return (
     <div className="div-90vh-pad10-flex">
@@ -176,27 +258,29 @@ const CheckOutWithoutUser = () => {
                 <Form.Check
                   style={{ marginTop: "2dvh", marginBottom: "2dvh" }}
                   type="switch"
-                  value={0}
-                  onChange={(e) => setCODChecked(e.target.checked)}
+                  value={15000}
+                  checked={cashOnDelivery}
+                  onChange={(e) => handleCheckboxCOD(e)}
                   id="switch-C-O-D"
                   label="Cash On Delivery"
                 />
                 <Form.Check
                   type="switch"
-                  value={1}
-                  onChange={(e) => setComeAndTakeChecked(e.target.checked)}
+                  value={0}
+                  checked={comeAndTake}
+                  onChange={(e) => handleCheckboxCAT(e)}
                   id="switch-come-and-take"
-                  label="Take order at store"
+                  label="Take Orders At Store"
                 />
               </div>
             </div>
           </Col>
-          <Col>
+          <Col style={{ display: "flex", flexDirection: "column" }}>
             <Card
               style={{
-                width: "20dvw",
-                marginLeft: "5dvw",
+                width: "30dvw",
                 height: "fit-content",
+                alignSelf: "end",
               }}
             >
               <Card.Header as="h4">In Your Cart</Card.Header>
@@ -205,19 +289,19 @@ const CheckOutWithoutUser = () => {
                   style={{ display: "flex", justifyContent: "space-between" }}
                 >
                   <span>Subtotal</span>
-                  <span>{totalPriceCart}</span>
+                  <span>{subTotalPriceCart} VND</span>
                 </Card.Text>
                 <Card.Text
                   style={{ display: "flex", justifyContent: "space-between" }}
                 >
                   <span>Shipping</span>
-                  <span>0</span>
+                  <span>{shippingFee} VND</span>
                 </Card.Text>
                 <Card.Text
                   style={{ display: "flex", justifyContent: "space-between" }}
                 >
                   <span>Total</span>
-                  <span>{totalPriceCart}</span>
+                  <span>{totalPrice} VND</span>
                 </Card.Text>
               </Card.Body>
             </Card>

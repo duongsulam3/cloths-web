@@ -62,20 +62,26 @@ export const CartProvider = ({ children }) => {
         (existingCartItem) => existingCartItem.idItem === item.idItem
       );
       if (existingItem) {
-        const updatedCart = prevCart.map((cartItem) => {
-          if (cartItem.idItem === item.idItem) {
-            let quantityInCart = cartItem.quantityItem + item.quantityItem;
-            // console.log(`Added duplicate item`);
-            return {
-              ...cartItem,
-              quantityItem: quantityInCart,
-              totalPriceItem: cartItem.priceItem * quantityInCart,
-            };
-          }
-          return cartItem;
-        });
-        localStorage.setItem("carts", JSON.stringify(updatedCart));
-        return updatedCart;
+        if (existingItem.sizeItem === item.sizeItem) {
+          const updatedCart = prevCart.map((cartItem) => {
+            if (cartItem.idItem === item.idItem) {
+              let quantityInCart = cartItem.quantityItem + item.quantityItem;
+              // console.log(`Added duplicate item`);
+              return {
+                ...cartItem,
+                quantityItem: quantityInCart,
+                totalPriceItem: cartItem.priceItem * quantityInCart,
+              };
+            }
+            return cartItem;
+          });
+          localStorage.setItem("carts", JSON.stringify(updatedCart));
+          return updatedCart;
+        } else {
+          const newCart = [...prevCart, item];
+          localStorage.setItem("carts", JSON.stringify(newCart));
+          return newCart;
+        }
       } else {
         const newCart = [...prevCart, item];
         localStorage.setItem("carts", JSON.stringify(newCart));
