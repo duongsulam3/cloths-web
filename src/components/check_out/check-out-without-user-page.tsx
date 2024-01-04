@@ -39,7 +39,7 @@ const CheckOutWithoutUser = () => {
     localStorage.setItem("city", city);
     localStorage.setItem("email", email);
     localStorage.setItem("phone", phone);
-    localStorage.setItem("billPrice", totalPrice);
+    localStorage.setItem("billPrice", totalPrice.toString());
     if (firstName && lastName && address && city && email && phone != "") {
       if (comeAndTake === false) {
         if (cashOnDelivery === false) {
@@ -147,7 +147,7 @@ const CheckOutWithoutUser = () => {
     }
   };
 
-  const handleCheckboxCOD = (e) => {
+  const handleCheckboxCOD = (e: any) => {
     if (e.target.checked) {
       setCashOnDelivery(e.target.checked);
       setShippingFee(15000);
@@ -159,7 +159,7 @@ const CheckOutWithoutUser = () => {
     }
   };
 
-  const handleCheckboxCAT = (e) => {
+  const handleCheckboxCAT = (e: any) => {
     if (e.target.checked) {
       setComeAndTake(e.target.checked);
       setCashOnDelivery(false);
