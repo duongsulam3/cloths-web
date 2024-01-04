@@ -20,8 +20,8 @@ const Cart = () => {
 
   const isEmptyCart = cartCounter == 0;
 
-  const handleRemoveBtn = (idCart: any) => {
-    removeFromCart(idCart);
+  const handleRemoveBtn = (index: number) => {
+    removeFromCart(index);
   };
 
   const handleCheckOut = () => {
@@ -87,7 +87,7 @@ const Cart = () => {
                               color: "black",
                               borderColor: "transparent",
                             }}
-                            onClick={() => handleRemoveBtn(item.idItem)}
+                            onClick={() => handleRemoveBtn(i)}
                           >
                             <p className="material-icons">delete</p>
                           </Button>

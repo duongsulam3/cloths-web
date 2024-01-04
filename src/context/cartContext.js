@@ -91,13 +91,13 @@ export const CartProvider = ({ children }) => {
     });
   };
 
-  const removeFromCart = (id) => {
+  const removeFromCart = (indexSelected) => {
     setCarts((prevCart) => {
-      const updatedCart = prevCart.filter((item) => item.idItem !== id);
+      const updatedCart = [...prevCart];
+      updatedCart.splice(indexSelected, 1);
       localStorage.setItem("carts", JSON.stringify(updatedCart));
       return updatedCart;
     });
-    console.log(`removed item have id = ${id}`);
   };
 
   // if (!userCart) {
