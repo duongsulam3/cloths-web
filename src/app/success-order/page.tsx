@@ -14,6 +14,7 @@ const SuccessOrderPage = () => {
   const [email, setEmail] = useState<string | null>("");
   const [phone, setPhone] = useState<string | null>("");
   const [totalReceipt, setTotalReceipt] = useState<string | null>("");
+  const [shipping, setShipping] = useState<string | null>("");
   const [cartList, setCartList] = useState([] as any);
 
   const handleBtn = () => {
@@ -23,24 +24,25 @@ const SuccessOrderPage = () => {
 
   useEffect(() => {
     setTotalReceipt(localStorage.getItem("billPrice"));
-    if (user) {
-      setFirstName(user.firstName);
-      setLastName(user.lastName);
-      setAddress(user.address);
-      setCity(user.city);
-      setEmail(user.email);
-      setPhone(user.phoneNumber);
-      return;
-    } else {
-      setFirstName(localStorage.getItem("firstname"));
-      setLastName(localStorage.getItem("lastname"));
-      setAddress(localStorage.getItem("address"));
-      setCity(localStorage.getItem("city"));
-      setEmail(localStorage.getItem("email"));
-      setPhone(localStorage.getItem("phone"));
-    }
+    setShipping(localStorage.getItem("shipping"));
     if (carts) {
       setCartList(carts);
+      if (user) {
+        setFirstName(user.firstName);
+        setLastName(user.lastName);
+        setAddress(user.address);
+        setCity(user.city);
+        setEmail(user.email);
+        setPhone(user.phoneNumber);
+        return;
+      } else {
+        setFirstName(localStorage.getItem("firstname"));
+        setLastName(localStorage.getItem("lastname"));
+        setAddress(localStorage.getItem("address"));
+        setCity(localStorage.getItem("city"));
+        setEmail(localStorage.getItem("email"));
+        setPhone(localStorage.getItem("phone"));
+      }
     }
   }, [carts, user]);
 
@@ -107,6 +109,7 @@ const SuccessOrderPage = () => {
                 })}
               </tbody>
             </Table>
+            <div>Shipping: {shipping} VND</div>
             <div>Total Receipt: {totalReceipt} VND</div>
           </div>
         </div>

@@ -40,6 +40,7 @@ const CheckOutWithoutUser = () => {
     localStorage.setItem("email", email);
     localStorage.setItem("phone", phone);
     localStorage.setItem("billPrice", totalPrice.toString());
+    localStorage.setItem("shipping", shippingFee.toString());
     if (firstName && lastName && address && city && email && phone != "") {
       if (comeAndTake === false) {
         if (cashOnDelivery === false) {
@@ -57,6 +58,7 @@ const CheckOutWithoutUser = () => {
               email: email,
               phoneNumber: phone,
               cartItems: carts,
+              shipping: shippingFee,
               billPrice: totalPrice,
             };
             await addDoc(billRef, userData)
@@ -105,6 +107,7 @@ const CheckOutWithoutUser = () => {
             email: email,
             phoneNumber: phone,
             cartItems: carts,
+            shipping: shippingFee,
             billPrice: totalPrice,
           };
           await addDoc(billRef, userData)

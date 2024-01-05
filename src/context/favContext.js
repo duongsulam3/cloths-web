@@ -50,8 +50,7 @@ export const FavProvider = ({ children }) => {
   const addToFav = async (item) => {
     const existingItem = fav.find((favItem) => favItem.itemID === item.itemID);
     if (existingItem) {
-      alert("This item already in your list");
-      route.push("/");
+      toast.error("This item already in your list");
       return;
     } else {
       try {

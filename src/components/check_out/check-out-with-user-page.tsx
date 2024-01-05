@@ -14,52 +14,117 @@ import {
 } from "react-bootstrap";
 import { db } from "@/config/firebase";
 import { addDoc, collection, updateDoc } from "firebase/firestore";
+import { toast } from "react-toastify";
 
 const CheckOutWithUser = () => {
   //
   const { user } = UserAuth();
-
   const { carts, totalCart } = useCart();
 
   const [cartList, setCartList] = useState([] as any);
-  const [totalPriceCart, setTotalPriceCart] = useState<number>();
-  const [comeAndTakeChecked, setComeAndTakeChecked] = useState<boolean>(true);
-  const [codChecked, setCODChecked] = useState<boolean>(false);
+  const [subTotalPriceCart, setSubTotalPriceCart] = useState<number>(0);
+  const [cashOnDelivery, setCashOnDelivery] = useState<boolean>(false);
+  const [comeAndTake, setComeAndTake] = useState<boolean>(false);
+  const [shippingFee, setShippingFee] = useState<number>(0);
+  const [totalPrice, setTotalPrice] = useState<number>(0);
 
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
-  const [city, setCity] = useState("");
-  const [address, setAddress] = useState("");
-  const [phone, setPhone] = useState("");
+  const [firstName, setFirstName] = useState<string>("");
+  const [lastName, setLastName] = useState<string>("");
+  const [city, setCity] = useState<string>("");
+  const [address, setAddress] = useState<string>("");
+  const [phone, setPhone] = useState<string>("");
 
   const handleOrder = async () => {
-    try {
-      const billRef = collection(db, "orderWithUser");
-      const userData = {
-        orderStatus: "pending",
-        userID: user.userID,
-        email: user.email,
-        firstName: firstName,
-        lastName: lastName,
-        address: address,
-        city: city,
-        phoneNumber: phone,
-        cartItems: carts,
-        billPrice: totalCart,
-      };
-      await addDoc(billRef, userData)
-        .then(async (docRef) => {
-          await updateDoc(docRef, {
-            orderID: docRef.id,
+    localStorage.setItem("billPrice", totalPrice.toString());
+    localStorage.setItem("shipping", shippingFee.toString());
+    if (comeAndTake == false) {
+      if (cashOnDelivery == false) {
+        toast.error("You haven't select shipping method!");
+        return;
+      }
+      try {
+        const billRef = collection(db, "orderWithUser");
+        const userData = {
+          orderStatus: "pending",
+          userID: user.userID,
+          email: user.email,
+          firstName: firstName,
+          lastName: lastName,
+          address: address,
+          city: city,
+          phoneNumber: phone,
+          cartItems: carts,
+          shipping: shippingFee,
+          billPrice: totalPrice,
+        };
+        await addDoc(billRef, userData)
+          .then(async (docRef) => {
+            await updateDoc(docRef, {
+              orderID: docRef.id,
+            });
+            console.log("Order successfully");
+            window.location.href = "/success-order";
+          })
+          .catch((error) => {
+            console.log(error);
           });
-          console.log("Order successfully");
-          window.location.href = "/success-order";
-        })
-        .catch((error) => {
-          console.log(error);
-        });
-    } catch (error) {
-      console.error(error);
+      } catch (error) {
+        console.error(error);
+      }
+    } else {
+      try {
+        const billRef = collection(db, "orderWithUser");
+        const userData = {
+          orderStatus: "pending",
+          userID: user.userID,
+          email: user.email,
+          firstName: firstName,
+          lastName: lastName,
+          address: address,
+          city: city,
+          phoneNumber: phone,
+          cartItems: carts,
+          shipping: shippingFee,
+          billPrice: totalPrice,
+        };
+        await addDoc(billRef, userData)
+          .then(async (docRef) => {
+            await updateDoc(docRef, {
+              orderID: docRef.id,
+            });
+            console.log("Order successfully");
+            window.location.href = "/success-order";
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+      } catch (error) {
+        console.error(error);
+      }
+    }
+  };
+
+  const handleCheckboxCOD = (e: any) => {
+    if (e.target.checked) {
+      setCashOnDelivery(e.target.checked);
+      setShippingFee(15000);
+      setComeAndTake(false);
+    } else {
+      setCashOnDelivery(false);
+      setShippingFee(0);
+      setComeAndTake(true);
+    }
+  };
+
+  const handleCheckboxCAT = (e: any) => {
+    if (e.target.checked) {
+      setComeAndTake(e.target.checked);
+      setCashOnDelivery(false);
+      setShippingFee(0);
+    } else {
+      setComeAndTake(false);
+      setCashOnDelivery(true);
+      setShippingFee(15000);
     }
   };
 
@@ -73,9 +138,10 @@ const CheckOutWithUser = () => {
     }
     if (carts && totalCart) {
       setCartList(carts);
-      setTotalPriceCart(totalCart);
+      setSubTotalPriceCart(totalCart);
+      setTotalPrice(totalCart + shippingFee);
     }
-  }, [carts, user, totalCart]);
+  }, [carts, user, totalCart, shippingFee]);
 
   return (
     <div className="div-90vh-pad10-flex">
@@ -128,17 +194,19 @@ const CheckOutWithUser = () => {
               <Form.Check
                 style={{ marginTop: "2dvh", marginBottom: "2dvh" }}
                 type="switch"
-                value={0}
-                onChange={(e) => setCODChecked(e.target.checked)}
+                value={15000}
+                checked={cashOnDelivery}
+                onChange={(e) => handleCheckboxCOD(e)}
                 id="switch-C-O-D"
                 label="Cash On Delivery"
               />
               <Form.Check
                 type="switch"
-                value={1}
-                onChange={(e) => setComeAndTakeChecked(e.target.checked)}
+                value={0}
+                checked={comeAndTake}
+                onChange={(e) => handleCheckboxCAT(e)}
                 id="switch-come-and-take"
-                label="Take order at store"
+                label="Take Orders At Store"
               />
             </div>
           </div>
@@ -146,9 +214,9 @@ const CheckOutWithUser = () => {
         <Col>
           <Card
             style={{
-              width: "20dvw",
-              marginLeft: "5dvw",
+              width: "30dvw",
               height: "fit-content",
+              alignSelf: "end",
             }}
           >
             <Card.Header as="h4">In Your Cart</Card.Header>
@@ -157,19 +225,19 @@ const CheckOutWithUser = () => {
                 style={{ display: "flex", justifyContent: "space-between" }}
               >
                 <span>Subtotal</span>
-                <span>{totalPriceCart}</span>
+                <span>{subTotalPriceCart}</span>
               </Card.Text>
               <Card.Text
                 style={{ display: "flex", justifyContent: "space-between" }}
               >
                 <span>Shipping</span>
-                <span>0</span>
+                <span>{shippingFee}</span>
               </Card.Text>
               <Card.Text
                 style={{ display: "flex", justifyContent: "space-between" }}
               >
                 <span>Total</span>
-                <span>{totalPriceCart}</span>
+                <span>{totalPrice}</span>
               </Card.Text>
             </Card.Body>
           </Card>

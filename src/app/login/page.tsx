@@ -8,10 +8,10 @@ import {
   Form,
   Col,
   Row,
-  Alert,
   FloatingLabel,
 } from "react-bootstrap";
 import FormInput from "@/components/form-input";
+import { toast } from "react-toastify";
 
 const LoginPage = () => {
   const { user, googleSignIn, logOut, emailSignIn, emailSignUp } = UserAuth();
@@ -49,7 +49,7 @@ const LoginPage = () => {
         console.error(error);
       }
     } else {
-      alert("Missing input, please try again!");
+      toast.error("Missing input, please try again!");
       return;
     }
   };
@@ -103,11 +103,11 @@ const LoginPage = () => {
           console.error(error);
         }
       } else {
-        alert("Password doesn't match");
+        toast.error("Password doesn't match");
         return;
       }
     } else {
-      alert("Missing input, please try again!");
+      toast.error("Missing input, please try again!");
       return;
     }
   };

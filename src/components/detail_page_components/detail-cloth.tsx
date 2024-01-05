@@ -10,6 +10,7 @@ import { useCart } from "@/context/cartContext";
 import { useRouter } from "next/navigation";
 import { UserAuth } from "@/context/authContext";
 import { useFav } from "@/context/favContext";
+import { toast } from "react-toastify";
 
 interface IPros {
   cloth: Cloth;
@@ -80,8 +81,12 @@ const DescriptionCloth = (props: IPros) => {
         itemName: cloth?.name,
       });
     } else {
-      alert("You have to login to use this feature! Go to login page?");
-      route.push("/login");
+      toast.error("You have to login to use this feature! Go to login page?", {
+        onClose: () => {
+          route.push("/login");
+        },
+        closeOnClick: true,
+      });
     }
   };
 

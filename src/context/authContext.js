@@ -100,7 +100,12 @@ export const AuthContextProvider = ({ children }) => {
             const data = docSnap?.data();
             if (data?.isAdmin === true) {
               await logOut();
-              toast.error("This account can not login here!");
+              toast.error("This account can not login here!", {
+                onClose: () => {
+                  window.location.reload();
+                },
+                closeOnClick: true,
+              });
               return;
             }
           }
@@ -154,11 +159,13 @@ export const AuthContextProvider = ({ children }) => {
             autoClose: 2000,
           });
         } catch (error) {
-          alert(error);
+          toast.error(error);
+          return;
         }
       })
       .catch((error) => {
-        alert(error);
+        toast.error(error);
+        return;
       });
   };
 

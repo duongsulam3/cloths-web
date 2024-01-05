@@ -38,7 +38,6 @@ const FavoritePage = () => {
   return (
     <div className="div-90vh-10pad">
       <Container fluid>
-        <h2>Favorite List</h2>
         <Row className="g-2">
           <Col>
             {loading ? (
@@ -56,7 +55,10 @@ const FavoritePage = () => {
                 <h4>Your list is empty</h4>
               </div>
             ) : (
-              <CardInFav cloths={favClothList} />
+              <>
+                <h2>Favorite List</h2>
+                <CardInFav cloths={favClothList} />
+              </>
             )}
           </Col>
         </Row>
