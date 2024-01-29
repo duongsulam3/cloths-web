@@ -5,6 +5,7 @@ import { UserAuth } from "./authContext";
 import { collection, doc, getDoc, setDoc, updateDoc } from "firebase/firestore";
 import { db } from "@/config/firebase";
 import { useRouter } from "next/navigation";
+import { toast } from "react-toastify";
 
 const FavContext = createContext();
 

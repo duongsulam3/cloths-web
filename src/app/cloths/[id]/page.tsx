@@ -32,7 +32,6 @@ const DetailCloth = ({ params }: { params: { id: string } }) => {
         console.error(error);
       }
     };
-    getClothById();
 
     const getSaleList = async () => {
       const clothCollectionRef = collection(db, "clothing");
@@ -47,6 +46,7 @@ const DetailCloth = ({ params }: { params: { id: string } }) => {
         console.error(error);
       }
     };
+    getClothById();
     getSaleList();
   }, [params.id]);
   return (

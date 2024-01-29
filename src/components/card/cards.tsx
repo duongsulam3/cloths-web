@@ -4,6 +4,7 @@ import Card from "react-bootstrap/Card";
 import "@/styles/app.scss";
 import { Row, Col } from "react-bootstrap";
 import Link from "next/link";
+import { NumericFormat } from "react-number-format";
 
 interface IPros {
   cloths: Cloth[];
@@ -34,16 +35,30 @@ const CardItem = (props: IPros) => {
                       <Card.Title
                         style={{ fontSize: "25px", marginTop: "5dvh" }}
                       >
-                        {cloth.price + " " + cloth.currency}
+                        <NumericFormat
+                          value={cloth.price.toFixed(2)}
+                          displayType={"text"}
+                          thousandSeparator={true}
+                          prefix={"VND"}
+                        />
                       </Card.Title>
                     </>
                   ) : (
                     <>
                       <Card.Title className="old-price">
-                        {cloth.oldPrice}
+                        <NumericFormat
+                          value={cloth.oldPrice.toFixed(2)}
+                          displayType={"text"}
+                          thousandSeparator={true}
+                        />
                       </Card.Title>
                       <Card.Title className="price">
-                        {cloth.price + " " + cloth.currency}
+                        <NumericFormat
+                          value={cloth.price.toFixed(2)}
+                          displayType={"text"}
+                          thousandSeparator={true}
+                          prefix={"VND"}
+                        />
                       </Card.Title>
                     </>
                   )}

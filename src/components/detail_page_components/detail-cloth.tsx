@@ -11,6 +11,7 @@ import { useRouter } from "next/navigation";
 import { UserAuth } from "@/context/authContext";
 import { useFav } from "@/context/favContext";
 import { toast } from "react-toastify";
+import { NumericFormat } from "react-number-format";
 
 interface IPros {
   cloth: Cloth;
@@ -103,7 +104,12 @@ const DescriptionCloth = (props: IPros) => {
         <>
           <h5 className="old-price">{cloth?.oldPrice}</h5>
           <h3 className="sale-price-detail-page">
-            {cloth?.price + " " + cloth?.currency}
+            <NumericFormat
+              value={cloth.price.toFixed(2)}
+              displayType={"text"}
+              thousandSeparator={true}
+              prefix={"$"}
+            />
           </h3>
         </>
       )}
